@@ -3,15 +3,16 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
+        <title>Vending Machine</title>
         <link rel="stylesheet" href="style/style.css" />
         <script src="main.js" type="module"></script>
     </head>
     <body>
         <div id="app">
+            <h1>Vending Machine</h1>
             <div id="vending-machine">
                 <div id="panel-items">
-                    <ul>
+                    <ul class="item-list">
                         <li>메뉴1<span>500</span></li>
                         <li>메뉴2<span>1000</span></li>
                         <li>메뉴3<span>1000</span></li>
@@ -28,6 +29,10 @@
                         <li>메뉴14<span>1000</span></li>
                         <li>메뉴15<span>1000</span></li>
                         <li>메뉴16<span>1000</span></li>
+                        <li>메뉴17<span>1000</span></li>
+                        <li>메뉴18<span>1000</span></li>
+                        <li>메뉴19<span>1000</span></li>
+                        <li>메뉴20<span>1000</span></li>
                     </ul>
                 </div>
                 <div id="panel-state">
@@ -47,7 +52,7 @@
                             <li><button>선택</button></li>
                         </ul>
                     </div>
-                    <div class="state-message">진행 상태 표시 메시지창</div>
+                    <div class="state-message">진행 상태 표시 메시지창 (투입금액,선택제품,반환정보등 표시)</div>
                 </div>
             </div>
             <div id="wallet">
