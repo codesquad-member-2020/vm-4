@@ -8,7 +8,7 @@
     border-radius: 5px;
     background: $color-ci;
 
-    #panel-items {
+    #vm-items {
         width: 65%;
         padding: 10px;
         border: 2px solid #e75748;
@@ -35,7 +35,7 @@
             }
         }
     }
-    #panel-state {
+    #vm-state {
         padding: 0 10px;
         width: 35%;
         .state-money {

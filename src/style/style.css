@@ -198,7 +198,7 @@ h1 {
   background: #353746;
 }
 
-#vending-machine #panel-items {
+#vending-machine #vm-items {
   width: 65%;
   padding: 10px;
   border: 2px solid #e75748;
@@ -206,7 +206,7 @@ h1 {
   background: #fdf1d7;
 }
 
-#vending-machine #panel-items .item-list {
+#vending-machine #vm-items .item-list {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -214,7 +214,7 @@ h1 {
       flex-wrap: wrap;
 }
 
-#vending-machine #panel-items .item-list li {
+#vending-machine #vm-items .item-list li {
   width: 20%;
   margin: 2.5%;
   padding: 10px;
@@ -223,7 +223,7 @@ h1 {
   background: #fff;
 }
 
-#vending-machine #panel-items .item-list li span {
+#vending-machine #vm-items .item-list li span {
   display: block;
   margin-top: 10px;
   font-size: 13px;
@@ -232,12 +232,12 @@ h1 {
   background: #2cb69c;
 }
 
-#vending-machine #panel-state {
+#vending-machine #vm-state {
   padding: 0 10px;
   width: 35%;
 }
 
-#vending-machine #panel-state .state-money {
+#vending-machine #vm-state .state-money {
   margin-bottom: 10px;
   padding: 5px;
   border-radius: 3px;
@@ -245,11 +245,11 @@ h1 {
   background: #2cb69c;
 }
 
-#vending-machine #panel-state .state-numbers {
+#vending-machine #vm-state .state-numbers {
   margin-bottom: 10px;
 }
 
-#vending-machine #panel-state .state-numbers > ul {
+#vending-machine #vm-state .state-numbers > ul {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -257,24 +257,24 @@ h1 {
       flex-wrap: wrap;
 }
 
-#vending-machine #panel-state .state-numbers > ul li {
+#vending-machine #vm-state .state-numbers > ul li {
   width: 33.3%;
 }
 
-#vending-machine #panel-state .state-numbers > ul li button {
+#vending-machine #vm-state .state-numbers > ul li button {
   border: 1px solid #353746;
 }
 
-#vending-machine #panel-state .state-numbers > ul li:last-child {
+#vending-machine #vm-state .state-numbers > ul li:last-child {
   width: calc(100% - 33.3%);
 }
 
-#vending-machine #panel-state .state-numbers > ul li:last-child button {
+#vending-machine #vm-state .state-numbers > ul li:last-child button {
   color: #fff;
   background: #e75748;
 }
 
-#vending-machine #panel-state .state-message {
+#vending-machine #vm-state .state-message {
   min-height: 100px;
   padding: 10px;
   border: 2px solid #e75748;

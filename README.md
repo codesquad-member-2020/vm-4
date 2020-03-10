@@ -29,3 +29,11 @@
     - wallet-state : 지갑의 돈의 상태들 표시
     - wallet-total : 총 돈의 값을 표시
 
+
+
+
+
+Flow 정리
+
+
+
