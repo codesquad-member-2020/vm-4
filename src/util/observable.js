@@ -10,6 +10,6 @@ export default class Observable {
     this._observers = [...this._observers].filter(subscriber => subscriber !== observer);
   }
   notify(data) {
-    this._observers.forEach(observer => observer.update(data));
+    this._observers.forEach(observer => observer(data));
   }
 }

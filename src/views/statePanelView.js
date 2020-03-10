@@ -1,8 +1,7 @@
 export default class StatePanelView {
-  constructor(itemModel, walletModel, controller) {
+  constructor(itemModel, walletModel) {
     this.itemModel = itemModel;
     this.walletModel = walletModel;
-    this.controller = controller;
   }
 
   registerAsObserver() {
@@ -15,17 +14,13 @@ export default class StatePanelView {
     // 상품 선택 화면 렌더링
   }
 
-  bindEventListener() {
+  bindOnClickListener(handler) {
     // (임의 작성)
     const buttonArea = document.querySelector(".buttonArea");
-    buttonArea.addEventListener("click", e => this.controller.onClickItemHandler(e.target));
-  }
-
-  updateMessageView(data) {
-    // 현황판 업데이트
-  }
-
-  updateTotalAmountView(totalAmount) {
-    // 총 투입 금액 업데이트
+    buttonArea.addEventListener("click", e => {
+      // 클릭된 대상이 버튼이 아니면 바로 리턴 (임의 작성)
+      if (target !== button) return;
+      handler(e.target.textContent);
+    });
   }
 }

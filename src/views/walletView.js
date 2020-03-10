@@ -1,7 +1,6 @@
 class WalletView {
-  constructor(walletModel, controller) {
+  constructor(walletModel) {
     this.walletModel = walletModel;
-    this.controller = controller;
   }
 
   registerAsObserver() {
@@ -12,9 +11,13 @@ class WalletView {
     // 지갑 화면 렌더링
   }
 
-  bindEventListener() {
+  bindOnClickListener(handler) {
     // (임의 작성)
     const walletState = document.querySelector(".wallet-state");
-    walletState.addEventListener("click", e => this.controller.onClickWalletHandler(e.target));
+    walletState.addEventListener("click", e => {
+      // 클릭된 대상이 버튼이 아니면 바로 리턴 (임의 작성)
+      if (target !== button) return;
+      handler(e.target);
+    });
   }
 }
