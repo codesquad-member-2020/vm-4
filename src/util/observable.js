@@ -1,15 +1,15 @@
 export default class Observable {
   constructor() {
-    this._observers = new Set();
+    this._observers = { onLoad: new Set(), onPurchase: new Set(), onInputMoney: new Set() };
   }
 
-  addObserver(observer) {
-    this._observers.add(observer);
+  addObserver(type, observer) {
+    this._observers[type].add(observer);
   }
-  removeObserver(observer) {
-    this._observers = [...this._observers].filter(subscriber => subscriber !== observer);
+  removeObserver(type, observer) {
+    this._observers[type] = [...this._observers].filter(subscriber => subscriber !== observer);
   }
-  notify(data) {
-    this._observers.forEach(observer => observer(data));
+  notify(type, data) {
+    this._observers[type].forEach(observer => observer(data));
   }
 }

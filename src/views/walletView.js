@@ -4,12 +4,16 @@ class WalletView {
   }
 
   registerAsObserver() {
-    this.walletModel.addObserver(this.render);
+    this.walletModel.addObserver("onLoad", this.render);
+    this.walletModel.addObserver("onInputMoney", this.updateWalletView);
+    this.walletModel.addObserver("onPurchase", this.updateWalletView);
   }
 
-  render() {
+  render(data) {
     // 지갑 화면 렌더링
   }
+
+  updateWalletView(data) {}
 
   bindOnClickListener(handler) {
     // (임의 작성)
