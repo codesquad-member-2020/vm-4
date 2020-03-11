@@ -30,8 +30,8 @@ export default class StatePanelView {
 
   bindOnClickListener(handler) {
     // (임의 작성)
-    const buttonArea = document.querySelector(".buttonArea");
-    buttonArea.addEventListener("click", e => {
+    const statePanelButtonArea = document.querySelector(".state-numbers");
+    statePanelButtonArea.addEventListener("click", e => {
       // 클릭된 대상이 버튼이 아니면 바로 리턴 (임의 작성)
       if (target !== button) return;
       handler(e.target.textContent);

@@ -1,13 +1,14 @@
 export default class Controller {
-  constructor({ model: { itemModel, walletModel }, view: { stateView, walletView } }) {
+  constructor({
+    model: { itemModel, walletModel },
+    view: { itemPanelView, statePanelView, walletView }
+  }) {
     this.itemModel = itemModel;
     this.walletModel = walletModel;
 
-    this.stateView = stateView;
+    this.itemPanelView = itemPanelView;
+    this.statePanelView = statePanelView;
     this.walletView = walletView;
-
-    this.stateView.bindOnClickListener(this.onClickItemHandler);
-    this.walletView.bindOnClickListener(this.onClickWalletHandler);
 
     this.inputMoneyLog = {};
     this.totalInputMoney = 0;
@@ -27,5 +28,20 @@ export default class Controller {
 
   onClickWalletHandler(price) {
     // 클릭된 금액 확인하여 walletModel 업데이트
+  }
+
+  init() {
+    // register observers
+    this.itemPanelView.registerAsObserver();
+    this.statePanelView.registerAsObserver();
+    this.walletView.registerAsObserver();
+
+    // fetch data & render UI
+    this.itemModel.getInitialData();
+    this.walletModel.getInitialData();
+
+    // bind eventListeners
+    this.statePanelView.bindOnClickListener(this.onClickItemHandler);
+    this.walletView.bindOnClickListener(this.onClickWalletHandler);
   }
 }
