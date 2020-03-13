@@ -19,7 +19,7 @@ export function statePanel(_, data) {
     return btns;
   }, "");
 
-  const stateMoney = `<div class=${STATE_MONEY}>${data}원</div>`;
+  const stateMoney = `<div class=${STATE_MONEY}><span>0</span>원</div>`;
   const stateNumbers = `<div class=${STATE_NUMBERS}><ul>${buttons}</ul></div>`;
   const stateMessage = `<div class=${STATE_MESSAGE}></div>`;
 
