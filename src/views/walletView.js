@@ -1,3 +1,6 @@
+import { selectorNames } from "../util/constant.js";
+import { wallet } from "../util/template.js";
+
 export default class WalletView {
   constructor(walletModel) {
     this.walletModel = walletModel;
@@ -10,7 +13,9 @@ export default class WalletView {
   }
 
   render(data) {
-    // 지갑 화면 렌더링
+    const vendingMachine = document.getElementById(selectorNames.VM);
+    const walletView = wallet`${data}`;
+    vendingMachine.insertAdjacentHTML("beforeend", walletView);
   }
 
   updateWalletView(data) {}

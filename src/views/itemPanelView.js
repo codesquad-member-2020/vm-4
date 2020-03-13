@@ -1,3 +1,6 @@
+import { selectorNames } from "../util/constant.js";
+import { itemPanel } from "../util/template.js";
+
 export default class ItemPanelView {
   constructor(itemModel, walletModel) {
     this.itemModel = itemModel;
@@ -11,7 +14,9 @@ export default class ItemPanelView {
   }
 
   render(data) {
-    // 상품 화면 렌더링
+    const vendingMachine = document.getElementById(selectorNames.VM);
+    const itemPanelView = itemPanel`${data}`;
+    vendingMachine.insertAdjacentHTML("beforeend", itemPanelView);
   }
 
   updateItemPanelView(data) {
