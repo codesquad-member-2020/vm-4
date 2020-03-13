@@ -9,8 +9,8 @@ export default class StatePanelView {
 
   registerAsObserver() {
     // 각각의 모델에 StatePanelView를 observer로 등록
+    this.itemModel.addObserver("onLoad", this.render);
     this.itemModel.addObserver("onPurchase", this.updateMessageView);
-    this.walletModel.addObserver("onLoad", this.render);
     this.walletModel.addObserver("onInputMoney", this.updateStatePanelView);
     this.walletModel.addObserver("onPurchase", this.clearStatePanelView);
   }

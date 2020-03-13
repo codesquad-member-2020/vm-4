@@ -1,0 +1,26 @@
+{
+  "name": "vm-4",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/server/server.js"
+  },
+  "dependencies": {
+    "express": "4.17.1",
+    "request": "2.88.2",
+    "cors": "^2.8.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codesquad-memeber-2020/vm-4.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/codesquad-memeber-2020/vm-4/issues"
+  },
+  "homepage": "https://github.com/codesquad-memeber-2020/vm-4#readme"
+}
