@@ -1,3 +1,6 @@
+import { selectorNames } from "../util/constant.js";
+import { statePanel } from "../util/template.js";
+
 export default class StatePanelView {
   constructor(itemModel, walletModel) {
     this.itemModel = itemModel;
@@ -6,14 +9,16 @@ export default class StatePanelView {
 
   registerAsObserver() {
     // 각각의 모델에 StatePanelView를 observer로 등록
+    this.itemModel.addObserver("onLoad", this.render);
     this.itemModel.addObserver("onPurchase", this.updateMessageView);
-    this.walletModel.addObserver("onLoad", this.render);
     this.walletModel.addObserver("onInputMoney", this.updateStatePanelView);
     this.walletModel.addObserver("onPurchase", this.clearStatePanelView);
   }
 
-  render() {
-    // 상품 선택 화면 렌더링
+  render(data) {
+    const vendingMachine = document.getElementById(selectorNames.VM);
+    const statePanelView = statePanel`${data}`;
+    vendingMachine.insertAdjacentHTML("beforeend", statePanelView);
   }
 
   updateMessageView(data) {
