@@ -9,7 +9,10 @@ export default class WalletModel extends Observable {
   }
 
   getInitialData() {
-    this.http.get(this.url);
+    this.http.get(this.url).then(data => {
+      this.wallet = data;
+      this.notify('onLoad', this.wallet);
+    })
     // response받은 데이터를 this.wallet에 할당
   }
 
