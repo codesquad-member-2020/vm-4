@@ -15,7 +15,7 @@ export default class WalletView {
   render(data) {
     const vendingMachine = document.getElementById(selectorNames.VM);
     const walletView = wallet`${data}`;
-    vendingMachine.insertAdjacentHTML("beforeend", walletView);
+    vendingMachine.insertAdjacentHTML("afterend", walletView);
   }
 
   updateWalletView(data) {}
