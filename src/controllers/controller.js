@@ -1,9 +1,9 @@
 export default class Controller {
   constructor({
-    model: { itemModel, walletModel },
+    model: { vendingMachineModel, walletModel },
     view: { itemPanelView, statePanelView, walletView }
   }) {
-    this.itemModel = itemModel;
+    this.vendingMachineModel = vendingMachineModel;
     this.walletModel = walletModel;
 
     this.itemPanelView = itemPanelView;
@@ -17,10 +17,10 @@ export default class Controller {
   }
 
   onClickItemHandler(label) {
-    // '선택' 버튼 클릭 시 itemModel 업데이트 (임의 작성)
+    // '선택' 버튼 클릭 시 vendingMachineModel 업데이트 (임의 작성)
     if (label === "선택") {
       const menuId = this.selectedItemId.join("");
-      this.itemModel.setSelectedItem(menuId);
+      this.vendingMachineModel.setSelectedItem(menuId);
     } else {
       this.selectedItemId.push(target.textContent);
     }
@@ -37,7 +37,7 @@ export default class Controller {
     this.walletView.registerAsObserver();
 
     // fetch data & render UI
-    this.itemModel.getInitialData();
+    this.vendingMachineModel.getInitialData();
     this.walletModel.getInitialData();
 
     // bind eventListeners

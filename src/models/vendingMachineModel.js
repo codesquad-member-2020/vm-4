@@ -1,6 +1,6 @@
 import Observable from "../util/observable.js";
 
-export default class ItemModel extends Observable {
+export default class VendingMachineModel extends Observable {
   constructor(requestUrl, httpRequestModule) {
     super();
     this.url = requestUrl;
