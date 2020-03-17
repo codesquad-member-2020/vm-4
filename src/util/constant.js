@@ -8,5 +8,6 @@ export const selectorNames = {
   STATE_MESSAGE: "state-message",
   WALLET: "wallet",
   WALLET_STATE: "wallet-state",
+  WALLET_COUNT: "wallet-count",
   WALLET_TOTAL: "wallet-total"
 };

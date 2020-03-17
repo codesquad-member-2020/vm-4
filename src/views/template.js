@@ -27,12 +27,12 @@ export function statePanel(_, data) {
 }
 
 export function wallet(_, data) {
-  const { WALLET, WALLET_STATE, WALLET_TOTAL } = selectorNames;
+  const { WALLET, WALLET_STATE, WALLET_COUNT, WALLET_TOTAL } = selectorNames;
   const { moneyList, total } = data;
 
   let list = "";
   for (let [money, count] of Object.entries(moneyList)) {
-    list += `<li><button value=${money}>${money}원</button><span>${count}</span>개</li>`;
+    list += `<li class=${WALLET_COUNT}><button value=${money}>${money}원</button><span>${count}</span>개</li>`;
   }
 
   let totalWithComma = "";
