@@ -1,4 +1,4 @@
-import { selectorNames } from "./constant.js";
+import { selectorNames } from "../util/constant.js";
 
 export function itemPanel(_, data) {
   const { VM_ITEMS, ITEM_LIST } = selectorNames;
@@ -28,11 +28,11 @@ export function statePanel(_, data) {
 
 export function wallet(_, data) {
   const { WALLET, WALLET_STATE, WALLET_TOTAL } = selectorNames;
-  let walletList = "";
-  let total = 0;
-  for (let [money, count] of Object.entries(data)) {
-    walletList += `<li><button value=${money}>${money}원</button><span>${count}개</span></li>`;
-    total += money * count;
+  const { moneyList, total } = data;
+
+  let list = "";
+  for (let [money, count] of Object.entries(moneyList)) {
+    list += `<li><button value=${money}>${money}원</button><span>${count}</span>개</li>`;
   }
 
   let totalWithComma = "";
@@ -43,7 +43,7 @@ export function wallet(_, data) {
       : (totalWithComma = `${totalString.slice(0, i)}` + totalWithComma);
   }
 
-  const walletState = `<div class=${WALLET_STATE}><ul>${walletList}</ul></div>`;
+  const walletState = `<div class=${WALLET_STATE}><ul>${list}</ul></div>`;
   const walletTotal = `<div class=${WALLET_TOTAL}>${totalWithComma}원</div>`;
 
   return `<div id=${WALLET}>${walletState}${walletTotal}</div>`;

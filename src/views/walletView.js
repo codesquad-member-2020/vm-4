@@ -1,5 +1,5 @@
 import { selectorNames } from "../util/constant.js";
-import { wallet } from "../util/template.js";
+import { wallet } from "./template.js";
 
 export default class WalletView {
   constructor(walletModel) {

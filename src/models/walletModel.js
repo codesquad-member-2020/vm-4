@@ -5,15 +5,25 @@ export default class WalletModel extends Observable {
     super();
     this.url = requestUrl;
     this.http = httpRequestModule;
-    this.wallet = null;
+    this.moneyList = null;
+    this.total = 0;
   }
 
   getInitialData() {
-    this.http.get(this.url).then(data => {
-      this.wallet = data;
-      this.notify("loadData", this.wallet);
+    const { url, http } = this;
+    http.get(url).then(data => {
+      this.setData(data);
+      this.notify("loadData", { moneyList: this.moneyList, total: this.total });
     });
-    // response받은 데이터를 this.wallet에 할당
+  }
+
+  setData(data) {
+    let total = 0;
+    for (const money in data) {
+      total += money * data[money];
+    }
+    this.total = total;
+    this.moneyList = data;
   }
 
   init() {
