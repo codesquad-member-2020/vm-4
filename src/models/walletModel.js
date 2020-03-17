@@ -45,6 +45,12 @@ export default class WalletModel extends Observable {
       }
     }
     amountOfMoney.forEach(processChanges.bind(this));
+    // this.requestUpdate(this.moneyList);
     this.notify("purchaseItem", { moneyList: this.moneyList, total: this.total });
+  }
+
+  requestUpdate(data) {
+    const { url, http } = this;
+    http.patch(url, data);
   }
 }
