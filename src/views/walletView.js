@@ -1,4 +1,4 @@
-import { selectorNames } from "../util/constant.js";
+import { selectorNames, observerType } from "../util/constant.js";
 import { wallet } from "./template.js";
 
 export default class WalletView {
@@ -7,9 +7,9 @@ export default class WalletView {
   }
 
   registerAsObserver() {
-    this.walletModel.addObserver("loadData", this.render);
-    this.walletModel.addObserver("inputMoney", this.updateWalletView.bind(this));
-    this.walletModel.addObserver("purchaseItem", this.updateWalletView.bind(this));
+    this.walletModel.addObserver(observerType.loadData, this.render);
+    this.walletModel.addObserver(observerType.inputMoney, this.updateWalletView.bind(this));
+    this.walletModel.addObserver(observerType.purchaseItem, this.updateWalletView.bind(this));
   }
 
   render(data) {
@@ -42,7 +42,7 @@ export default class WalletView {
   }
 
   bindOnClickListener(handler) {
-    const app = document.getElementById("app");
+    const app = document.getElementById(selectorNames.APP);
     app.addEventListener("click", e => {
       const target = e.target;
       const targetNode = target.nodeName;

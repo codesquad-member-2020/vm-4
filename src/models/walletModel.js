@@ -1,4 +1,5 @@
 import Observable from "../util/observable.js";
+import { observerType, moneyTypeList } from "../util/constant.js";
 
 export default class WalletModel extends Observable {
   constructor(requestUrl, httpRequestModule) {
@@ -13,7 +14,7 @@ export default class WalletModel extends Observable {
     const { url, http } = this;
     http.get(url).then(data => {
       this.setData(data);
-      this.notify("loadData", { moneyList: this.moneyList, total: this.total });
+      this.notify(observerType.loadData, { moneyList: this.moneyList, total: this.total });
     });
   }
 
@@ -31,11 +32,10 @@ export default class WalletModel extends Observable {
     if (moneyList[money] === 0) return;
     moneyList[money] -= 1;
     this.total -= money;
-    this.notify("inputMoney", { moneyList: moneyList, total: this.total });
+    this.notify(observerType.inputMoney, { moneyList: moneyList, total: this.total });
   }
 
   updateWhenPurchaseItem(price) {
-    const amountOfMoney = [10000, 5000, 1000, 500, 100, 50, 10];
     let itemPrice = price;
     function processChanges(money) {
       while (itemPrice >= money) {
@@ -44,9 +44,9 @@ export default class WalletModel extends Observable {
         this.total += money;
       }
     }
-    amountOfMoney.forEach(processChanges.bind(this));
+    moneyTypeList.forEach(processChanges.bind(this));
     // this.requestUpdate(this.moneyList);
-    this.notify("purchaseItem", { moneyList: this.moneyList, total: this.total });
+    this.notify(observerType.purchaseItem, { moneyList: this.moneyList, total: this.total });
   }
 
   requestUpdate(data) {
