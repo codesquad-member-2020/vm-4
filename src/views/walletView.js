@@ -9,7 +9,7 @@ export default class WalletView {
   registerAsObserver() {
     this.walletModel.addObserver("loadData", this.render);
     this.walletModel.addObserver("inputMoney", this.updateWalletView.bind(this));
-    this.walletModel.addObserver("purchaseItem", this.updateWalletView);
+    this.walletModel.addObserver("purchaseItem", this.updateWalletView.bind(this));
   }
 
   render(data) {
