@@ -44,7 +44,7 @@ export function wallet(_, data) {
   }
 
   const walletState = `<div class=${WALLET_STATE}><ul>${list}</ul></div>`;
-  const walletTotal = `<div class=${WALLET_TOTAL}>${totalWithComma}원</div>`;
+  const walletTotal = `<div class=${WALLET_TOTAL}><span>${totalWithComma}</span>원</div>`;
 
   return `<div id=${WALLET}>${walletState}${walletTotal}</div>`;
 }

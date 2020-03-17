@@ -26,7 +26,11 @@ export default class WalletModel extends Observable {
     this.moneyList = data;
   }
 
-  updateWallet(money) {
-    console.log(money);
+  updateWhenInputMoney(money) {
+    const { moneyList } = this;
+    if (moneyList[money] === 0) return;
+    moneyList[money] -= 1;
+    this.total -= money;
+    this.notify("inputMoney", { moneyList: moneyList, total: this.total });
   }
 }

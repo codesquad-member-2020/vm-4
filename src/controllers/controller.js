@@ -16,7 +16,7 @@ export default class Controller {
   onClickItemHandler() {}
 
   walletClickHandler(selectedMoney) {
-    this.walletModel.updateWallet(selectedMoney);
+    this.walletModel.updateWhenInputMoney(selectedMoney);
   }
 
   init() {

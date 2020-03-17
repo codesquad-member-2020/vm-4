@@ -8,7 +8,7 @@ export default class WalletView {
 
   registerAsObserver() {
     this.walletModel.addObserver("loadData", this.render);
-    this.walletModel.addObserver("inputMoney", this.updateWalletView);
+    this.walletModel.addObserver("inputMoney", this.updateWalletView.bind(this));
     this.walletModel.addObserver("purchaseItem", this.updateWalletView);
   }
 
@@ -18,7 +18,28 @@ export default class WalletView {
     vendingMachine.insertAdjacentHTML("afterend", walletView);
   }
 
-  updateWalletView(data) {}
+  updateWalletView(data) {
+    const { moneyList, total } = data;
+    const listNode = document.querySelectorAll(`.${selectorNames.WALLET_COUNT}`);
+    listNode.forEach(list => {
+      const [button, span] = list.children;
+      const money = button.getAttribute("value");
+      span.textContent = moneyList[money];
+    });
+    this.addComma(total);
+  }
+
+  addComma(total) {
+    let totalWithComma = "";
+    let totalString = total + "";
+    for (let i = totalString.length; i > 0; i -= 3) {
+      i - 3 > 0
+        ? (totalWithComma = `,${totalString.slice(i - 3, i)}` + totalWithComma)
+        : (totalWithComma = `${totalString.slice(0, i)}` + totalWithComma);
+    }
+    const totalNode = document.querySelector(`.${selectorNames.WALLET_TOTAL}`);
+    totalNode.firstElementChild.textContent = totalWithComma;
+  }
 
   bindOnClickListener(handler) {
     const app = document.getElementById("app");
