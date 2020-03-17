@@ -1,5 +1,5 @@
 import { selectorNames } from "../util/constant.js";
-import { wallet } from "../util/template.js";
+import { wallet } from "./template.js";
 
 export default class WalletView {
   constructor(walletModel) {
@@ -7,9 +7,9 @@ export default class WalletView {
   }
 
   registerAsObserver() {
-    this.walletModel.addObserver("onLoad", this.render);
-    this.walletModel.addObserver("onInputMoney", this.updateWalletView);
-    this.walletModel.addObserver("onPurchase", this.updateWalletView);
+    this.walletModel.addObserver("loadData", this.render);
+    this.walletModel.addObserver("inputMoney", this.updateWalletView);
+    this.walletModel.addObserver("purchaseItem", this.updateWalletView);
   }
 
   render(data) {

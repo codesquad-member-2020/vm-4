@@ -14,7 +14,7 @@ export default class VendingMachineModel extends Observable {
         this.http.get(this.url).then(data => {
           this.menu = data;
           localStorage.setItem("menuDB", JSON.stringify(this.menu));
-          this.notify("onLoad", this.menu);
+          this.notify("loadData", this.menu);
         })
       );
     });
@@ -22,18 +22,18 @@ export default class VendingMachineModel extends Observable {
     // 데이터 로드가 완료되면 notify 메소드 실행하여 observers(Views) 업데이트
   }
   inputMoney(price) {
-    this.notify("onInputMoney", price);
+    this.notify("inputMoney", price);
   }
   matchingMenu(price) {
     this.menu.forEach(menu => {
       if (menu.price <= price) return this.selectedMenu.push(menu);
     });
-    this.notify("onInputMoney", this.selectedMenu);
+    this.notify("inputMoney", this.selectedMenu);
   }
   setSelectedItem(menuId) {
     // 아이템 번호를 넘겨 받음
     // 해당되는 아이템 번호를 구독 알림
     const selectedItem = this.menu.filter(menu => menu.id == menuId);
-    this.notify("onPurchase", selectedItem);
+    this.notify("purchaseItem", selectedItem);
   }
 }
