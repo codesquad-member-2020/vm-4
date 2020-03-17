@@ -21,12 +21,14 @@ export default class WalletView {
   updateWalletView(data) {}
 
   bindOnClickListener(handler) {
-    // (임의 작성)
-    const walletButtonArea = document.querySelector(".wallet-state");
-    walletButtonArea.addEventListener("click", e => {
-      // 클릭된 대상이 버튼이 아니면 바로 리턴 (임의 작성)
-      if (target !== button) return;
-      handler(e.target);
+    const app = document.getElementById("app");
+    app.addEventListener("click", e => {
+      const target = e.target;
+      const targetNode = target.nodeName;
+      const parentClassName = target.parentNode.className;
+      if (targetNode === "BUTTON" && parentClassName === selectorNames.WALLET_COUNT) {
+        handler(target.value);
+      }
     });
   }
 }
