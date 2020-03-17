@@ -35,11 +35,11 @@ export default class WalletModel extends Observable {
     this.notify(observerType.inputMoney, { moneyList: moneyList, total: this.total });
   }
 
-  updateWhenPurchaseItem(price) {
-    let itemPrice = price;
+  updateWhenPurchaseItem(changes) {
+    let theChanges = changes;
     function processChanges(money) {
-      while (itemPrice >= money) {
-        itemPrice -= money;
+      while (theChanges >= money) {
+        theChanges -= money;
         this.moneyList[money] += 1;
         this.total += money;
       }
