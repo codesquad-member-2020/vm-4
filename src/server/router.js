@@ -11,10 +11,9 @@ const router = express.Router();
 const updateWalletJson = (req, res) => {
   const latestData = req.body;
   const file = path.join(__dirname, "../db/wallet.json");
-  fs.writeFile(file, JSON.stringify(latestData), err => {
+  fs.writeFile(file, JSON.stringify(latestData, null, 2), err => {
     if (err) throw err;
-    res.status(200);
-    res.end();
+    res.send(walletJSON);
   });
 };
 

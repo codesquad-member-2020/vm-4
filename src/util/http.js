@@ -13,6 +13,8 @@ export default class httpRequest {
       },
       body: JSON.stringify(data)
     };
-    await fetch(url, options);
+    const response = await fetch(url, options);
+    const resPromise = await response.json();
+    return resPromise;
   }
 }
