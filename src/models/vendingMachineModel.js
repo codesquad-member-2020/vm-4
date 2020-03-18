@@ -31,9 +31,7 @@ export default class VendingMachineModel extends Observable {
     this.notify("inputMoney", this.selectedMenu);
   }
   setSelectedItem(menuId) {
-    // 아이템 번호를 넘겨 받음
-    // 해당되는 아이템 번호를 구독 알림
-    const selectedItem = this.menu.filter(menu => menu.id == menuId);
+    let selectedItem = this.menu.find(menu => menu.id == menuId);
     this.notify("purchaseItem", selectedItem);
   }
 }

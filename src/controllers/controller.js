@@ -16,23 +16,17 @@ export default class Controller {
     this.selectedItemId = [];
   }
 
-  itemClickHandler(label) {
-    // '선택' 버튼 클릭 시 vendingMachineModel 업데이트 (임의 작성)
-    if (label === "선택") {
+  itemClickHandler(selectNumber) {
+    if (selectNumber === "선택") {
       const menuId = this.selectedItemId.join("");
+      this.selectedItemId = [];
       this.vendingMachineModel.setSelectedItem(menuId);
     } else {
-      this.selectedItemId.push(target.textContent);
+      this.selectedItemId.push(selectNumber);
     }
   }
 
-  walletClickHandler(price) {
-    // 클릭된 금액 확인하여 walletModel 업데이트
-    this.totalInputMoney = this.totalInputMoney + price;
-    this.vendingMachineModel.matchingMenu(this.totalInputMoney);
-    this.vendingMachineModel.inputMoney(this.totalInputMoney);
-    this.walletModel.inputMoney(this.inputMoneyLog);
-  }
+  walletClickHandler() {}
 
   async init() {
     // register observers
@@ -45,7 +39,7 @@ export default class Controller {
     await this.walletModel.getInitialData();
 
     // bind eventListeners
-    this.statePanelView.bindOnClickListener(this.itemClickHandler);
+    this.statePanelView.bindOnClickListener(this.itemClickHandler.bind(this));
     this.walletView.bindOnClickListener(this.walletClickHandler);
   }
 }
