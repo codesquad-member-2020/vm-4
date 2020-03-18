@@ -9,7 +9,7 @@ export default class Controller {
     this.itemPanelView = itemPanelView;
     this.statePanelView = statePanelView;
     this.walletView = walletView;
-
+    this.selectedItemId = [];
     this.itemData = null;
   }
 

@@ -10,7 +10,7 @@ export default class WalletModel extends Observable {
     this.total = 0;
   }
 
-  getInitialData() 
+  getInitialData() {
     const { url, http } = this;
     http.get(url).then(data => {
       this.setData(data);
