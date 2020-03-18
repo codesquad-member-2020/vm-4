@@ -25,7 +25,7 @@ export default class StatePanelView {
     const statePanelView = statePanel`${data}`;
     vendingMachine.insertAdjacentHTML("beforeend", statePanelView);
     this.messageEl = document.querySelector(".state-message");
-    this.moneyEl = document.querySelector(".state-money span");
+    this.moneyEl = document.querySelector(".state-money");
   }
 
   updateMessageView(data) {
@@ -45,7 +45,7 @@ export default class StatePanelView {
     this.updateMoneyView();
   }
   updateMoneyView(){
-    this.moneyEl.innerHTML = `${this.statusMoney}`;
+    this.moneyEl.innerHTML = `<span>${this.statusMoney}</span>`;
   }
 
   clearStatePanelView() {
