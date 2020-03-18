@@ -1,9 +1,9 @@
 export default class Controller {
   constructor({
-    model: { itemModel, walletModel },
+    model: { vendingMachineModel, walletModel },
     view: { itemPanelView, statePanelView, walletView }
   }) {
-    this.itemModel = itemModel;
+    this.vendingMachineModel = vendingMachineModel;
     this.walletModel = walletModel;
 
     this.itemPanelView = itemPanelView;
@@ -13,25 +13,33 @@ export default class Controller {
     this.itemData = null;
   }
 
-  onClickItemHandler() {}
+  itemClickHandler(selectNumber) {
+    if (selectNumber === "선택") {
+      const menuId = this.selectedItemId.join("");
+      this.selectedItemId = [];
+      this.vendingMachineModel.setSelectedItem(menuId);
+    } else {
+      this.selectedItemId.push(selectNumber);
+    }
+  }
 
-  onClickWalletHandler() {}
+  walletClickHandler() {}
 
-  init() {
+  async init() {
     // register observers
     this.itemPanelView.registerAsObserver();
     this.statePanelView.registerAsObserver();
     this.walletView.registerAsObserver();
 
-    // fetch data & render View
-    this.itemModel.getInitialData();
-    this.walletModel.getInitialData();
+    // fetch data & render UI
+    await this.vendingMachineModel.getInitialData();
+    await this.walletModel.getInitialData();
 
     // cached itemData
     this.itemData = JSON.parse(localStorage.getItem(""));
 
     // bind eventListeners
-    this.statePanelView.bindOnClickListener(this.onClickItemHandler);
-    this.walletView.bindOnClickListener(this.onClickWalletHandler);
+    this.statePanelView.bindOnClickListener(this.itemClickHandler.bind(this));
+    this.walletView.bindOnClickListener(this.walletClickHandler);
   }
 }

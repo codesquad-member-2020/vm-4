@@ -1,16 +1,16 @@
 import { selectorNames } from "../util/constant.js";
-import { itemPanel } from "../util/template.js";
+import { itemPanel } from "./template.js";
 
 export default class ItemPanelView {
-  constructor(itemModel, walletModel) {
-    this.itemModel = itemModel;
+  constructor(vendingMachineModel, walletModel) {
+    this.vendingMachineModel = vendingMachineModel;
     this.walletModel = walletModel;
   }
 
   registerAsObserver() {
     // 각각의 모델에 ItemPanelView를 observer로 등록
-    this.itemModel.addObserver("onLoad", this.render);
-    this.walletModel.addObserver("onInputMoney", this.updateItemPanelView);
+    this.vendingMachineModel.addObserver("loadData", this.render);
+    this.walletModel.addObserver("inputMoney", this.updateItemPanelView);
   }
 
   render(data) {

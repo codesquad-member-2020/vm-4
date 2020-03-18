@@ -1,4 +1,4 @@
-import { selectorNames } from "./constant.js";
+import { selectorNames } from "../util/constant.js";
 
 export function itemPanel(_, data) {
   const { VM_ITEMS, ITEM_LIST } = selectorNames;
@@ -15,7 +15,7 @@ export function statePanel(_, data) {
   numbers[numbers.length - 1] = "선택";
 
   const buttons = numbers.reduce((btns, number) => {
-    btns += `<li><button>${number}</button></li>`;
+    btns += `<li><button value=${number}>${number}</button></li>`;
     return btns;
   }, "");
 
