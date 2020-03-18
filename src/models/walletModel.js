@@ -1,31 +1,56 @@
 import Observable from "../util/observable.js";
+import { observerType, moneyTypeList } from "../util/constant.js";
 
 export default class WalletModel extends Observable {
   constructor(requestUrl, httpRequestModule) {
     super();
     this.url = requestUrl;
     this.http = httpRequestModule;
-    this.wallet = null;
+    this.moneyList = null;
+    this.total = 0;
   }
 
   getInitialData() {
-    this.http.get(this.url).then(data => {
-      this.wallet = data;
-      this.notify('onLoad', this.wallet);
-    })
-    // response받은 데이터를 this.wallet에 할당
+    const { url, http } = this;
+    http.get(url).then(data => {
+      this.setData(data);
+      this.notify(observerType.loadData, { moneyList: this.moneyList, total: this.total });
+    });
   }
 
-  init() {
-    // server로부터 지갑 데이터 가져오기
-    this.getInitialData();
-    // 데이터 로드가 완료되면 notify 메소드 실행하여 observers(Views) 업데이트
-    this.notify(this.wallet);
+  setData(data) {
+    let total = 0;
+    for (const money in data) {
+      total += money * data[money];
+    }
+    this.total = total;
+    this.moneyList = data;
   }
 
-  updateWallet() {
-    // controller가 호출할 메서드.
-    // this.wallet 업데이트하고 server에 wallet 데이터를 전송하여 db를 최신상태로 업데이트
-    this.http.post(this.url);
+  updateWhenInputMoney(money) {
+    const { moneyList } = this;
+    if (moneyList[money] === 0) return;
+    moneyList[money] -= 1;
+    this.total -= money;
+    this.notify(observerType.inputMoney, { moneyList: moneyList, total: this.total });
+  }
+
+  updateWhenPurchaseItem(changes) {
+    let theChanges = changes;
+    function processChanges(money) {
+      while (theChanges >= money) {
+        theChanges -= money;
+        this.moneyList[money] += 1;
+        this.total += money;
+      }
+    }
+    moneyTypeList.forEach(processChanges.bind(this));
+    // this.requestUpdate(this.moneyList);
+    this.notify(observerType.purchaseItem, { moneyList: this.moneyList, total: this.total });
+  }
+
+  requestUpdate(data) {
+    const { url, http } = this;
+    http.patch(url, data);
   }
 }
