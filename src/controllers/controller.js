@@ -11,6 +11,7 @@ export default class Controller {
     this.walletView = walletView;
     this.selectedItemId = [];
     this.itemData = null;
+    this.inputMoney = 0;
   }
 
   itemClickHandler(selectNumber) {
@@ -24,6 +25,7 @@ export default class Controller {
   }
 
   walletClickHandler(selectedMoney) {
+    this.inputMoney += parseInt(selectedMoney);
     this.walletModel.updateWhenInputMoney(selectedMoney);
   }
 
