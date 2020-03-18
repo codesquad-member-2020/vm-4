@@ -1,32 +1,52 @@
 import { selectorNames } from "../util/constant.js";
-import { statePanel } from "../util/template.js";
+import { statePanel } from "./template.js";
 
 export default class StatePanelView {
-  constructor(itemModel, walletModel) {
-    this.itemModel = itemModel;
+  constructor(vendingMachineModel, walletModel) {
+    this.vendingMachineModel = vendingMachineModel;
     this.walletModel = walletModel;
+    this.messageEl = null;
+    this.selectItem = [];
+    this.statusMoney = 0;
   }
 
   registerAsObserver() {
     // 각각의 모델에 StatePanelView를 observer로 등록
-    this.itemModel.addObserver("onLoad", this.render);
-    this.itemModel.addObserver("onPurchase", this.updateMessageView);
-    this.walletModel.addObserver("onInputMoney", this.updateStatePanelView);
-    this.walletModel.addObserver("onPurchase", this.clearStatePanelView);
+    this.vendingMachineModel.addObserver("loadData", this.render.bind(this));
+    this.vendingMachineModel.addObserver(
+      "purchaseItem",
+      this.updateMessageView.bind(this)
+    );
+    this.walletModel.addObserver(
+      "inputMoney",
+      this.updateStatePanelView.bind(this)
+    );
+    this.walletModel.addObserver(
+      "purchaseItem",
+      this.clearStatePanelView.bind(this)
+    );
   }
 
   render(data) {
     const vendingMachine = document.getElementById(selectorNames.VM);
     const statePanelView = statePanel`${data}`;
     vendingMachine.insertAdjacentHTML("beforeend", statePanelView);
+    this.messageEl = document.querySelector(".state-message");
   }
 
   updateMessageView(data) {
     // 현황판 업데이트
+    this.selectItem.push(data);
+    const a = this.selectItem.reduce((v, n) => (v += `<p>${n.name} 선택했습니다.</p>`), "");
+    console.log("updateMessage()" + a);
+    // this.messageEl.innerHTML = `${data.name}을 선택하셨습니다.`;
   }
 
   updateStatePanelView(data) {
     // 총 투입 금액 & 현황판 업데이트
+    this.messageData.push(data.price);
+    console.log("updateState()" + this.messageData);
+    // this.messageEl.innerHTML = `${data.price}`
   }
 
   clearStatePanelView() {
@@ -34,12 +54,10 @@ export default class StatePanelView {
   }
 
   bindOnClickListener(handler) {
-    // (임의 작성)
     const statePanelButtonArea = document.querySelector(".state-numbers");
     statePanelButtonArea.addEventListener("click", e => {
-      // 클릭된 대상이 버튼이 아니면 바로 리턴 (임의 작성)
-      if (target !== button) return;
-      handler(e.target.textContent);
+      if (e.target.nodeName !== "BUTTON") return;
+      handler(e.target.value);
     });
   }
 }
