@@ -14,22 +14,10 @@ export default class StatePanelView {
   registerAsObserver() {
     // 각각의 모델에 StatePanelView를 observer로 등록
     this.vendingMachineModel.addObserver("loadData", this.render.bind(this));
-    this.vendingMachineModel.addObserver(
-      "inputMoney",
-      this.updateStatePanelView.bind(this)
-    );
-    this.vendingMachineModel.addObserver(
-      "purchaseItem",
-      this.updateMessageView.bind(this)
-    );
-    this.vendingMachineModel.addObserver(
-      "purchaseItem",
-      this.updateCalcMoney.bind(this)
-    );
-    this.walletModel.addObserver(
-      "purchaseItem",
-      this.clearStatePanelView.bind(this)
-    );
+    this.vendingMachineModel.addObserver("inputMoney", this.updateStatePanelView.bind(this));
+    this.vendingMachineModel.addObserver("purchaseItem", this.updateMessageView.bind(this));
+    this.vendingMachineModel.addObserver("purchaseItem", this.updateCalcMoney.bind(this));
+    this.walletModel.addObserver("purchaseItem", this.clearStatePanelView.bind(this));
   }
 
   render(data) {
@@ -43,15 +31,13 @@ export default class StatePanelView {
   updateMessageView(data) {
     // 현황판 업데이트
     this.selectItem.push(data);
-    const a = this.selectItem.reduce(
-      (v, n) => (v += `<p>${n.name} 선택했습니다.</p>`),
-      ""
-    );
-    this.messageEl.innerHTML = a;
+    const selectedMessage = this.selectItem.reduce((addMessage, item) => (addMessage += `<p>${item.name} 선택했습니다.</p>`),"");
+    this.messageEl.innerHTML = selectedMessage;
   }
   
   updateStatePanelView(data) {
     this.statusMoney = data;
+    this.messageEl.innerHTML = `총 투입금액은 ${this.statusMoney}원 입니다.`;
     this.updateMoneyView();
   }
   updateCalcMoney(data) {
@@ -64,6 +50,8 @@ export default class StatePanelView {
 
   clearStatePanelView() {
     // 상태 패널 초기화
+    this.statusMoney = null;
+    this.selectItem = [];
   }
 
   bindOnClickListener(handler) {
