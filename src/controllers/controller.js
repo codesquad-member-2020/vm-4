@@ -23,7 +23,9 @@ export default class Controller {
     }
   }
 
-  walletClickHandler() {}
+  walletClickHandler(selectedMoney) {
+    this.walletModel.updateWhenInputMoney(selectedMoney);
+  }
 
   async init() {
     // register observers
@@ -40,6 +42,6 @@ export default class Controller {
 
     // bind eventListeners
     this.statePanelView.bindOnClickListener(this.itemClickHandler.bind(this));
-    this.walletView.bindOnClickListener(this.walletClickHandler);
+    this.walletView.bindOnClickListener(this.walletClickHandler.bind(this));
   }
 }
