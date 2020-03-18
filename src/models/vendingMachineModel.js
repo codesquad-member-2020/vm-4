@@ -6,6 +6,7 @@ export default class VendingMachineModel extends Observable {
     this.url = requestUrl;
     this.http = httpRequestModule;
     this.menu = null;
+    this.inputMoney = null;
     this.selectedMenu = [];
   }
   getInitialData() {
@@ -21,8 +22,9 @@ export default class VendingMachineModel extends Observable {
     // response받은 데이터를 this.menu에 할당
     // 데이터 로드가 완료되면 notify 메소드 실행하여 observers(Views) 업데이트
   }
-  inputMoney(price) {
-    this.notify("inputMoney", price);
+  updateWhenInputMoney(price) {
+    this.inputMoney += parseInt(price);
+    this.notify("inputMoney", this.inputMoney);
   }
   matchingMenu(price) {
     this.menu.forEach(menu => {
