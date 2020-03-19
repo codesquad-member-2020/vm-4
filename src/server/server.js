@@ -11,4 +11,4 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(routes.vendingmachine, router);
 
-app.listen(8081);
+module.exports = app;
