@@ -19,8 +19,6 @@ export default class VendingMachineModel extends Observable {
         })
       );
     });
-    // response받은 데이터를 this.menu에 할당
-    // 데이터 로드가 완료되면 notify 메소드 실행하여 observers(Views) 업데이트
   }
   updateWhenInputMoney(price) {
     this.inputMoney += parseInt(price);
@@ -34,6 +32,7 @@ export default class VendingMachineModel extends Observable {
   }
   setSelectedItem(menuId) {
     let selectedItem = this.menu.find(menu => menu.id == menuId);
+    this.inputMoney -= selectedItem.price;
     this.notify("purchaseItem", selectedItem);
   }
 }
