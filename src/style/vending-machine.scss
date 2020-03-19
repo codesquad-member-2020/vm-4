@@ -32,6 +32,15 @@
                     border-radius: 3px;
                     background: #2cb69c;
                 }
+                &.active {
+                    border: 1px solid #e75748;
+                    outline: 1px dashed #e75748;
+                    outline-offset: -5px;
+                    span {
+                        color: #fff;
+                        background: #e75748;
+                    }
+                }
             }
         }
     }
