@@ -33,12 +33,13 @@ export default class Controller {
   getInputMoney(selectedMoney) {
     this.totalMoney += parseInt(selectedMoney);
     this.vendingMachineModel.updateWhenInputMoney(this.totalMoney);
+    this.vendingMachineModel.updateInputMoneyMsg(selectedMoney);
   }
 
   getBackMoney() {
     this.walletModel.updateWhenPurchaseItem(this.totalMoney);
   }
-  
+
   calcMoney(menuId) {
     let selectedItem = this.itemData.find(menu => menu.id == menuId);
     if (this.totalMoney < selectedItem.price)

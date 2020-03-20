@@ -13,7 +13,8 @@ export default class StatePanelView {
 
   registerAsObserver() {
     this.vendingMachineModel.addObserver("loadData", this.render.bind(this));
-    this.vendingMachineModel.addObserver("inputMoney", this.updateStatePanelView.bind(this));
+    this.vendingMachineModel.addObserver("inputMoney", this.updateMoneyView.bind(this));
+    this.vendingMachineModel.addObserver("inputMoneyMsg", this.updateStatePanelView.bind(this));
     this.vendingMachineModel.addObserver("purchaseItem", this.updateMessageView.bind(this));
     this.vendingMachineModel.addObserver("throwError", this.updateErrorView.bind(this));
     this.vendingMachineModel.addObserver("purchaseItem", this.updateCalcMoney.bind(this));
@@ -29,27 +30,29 @@ export default class StatePanelView {
   }
 
   updateMessage(message){
-    const resultMessage = message.reduce((total,add) => (total += `<p>${add} 선택했습니다.</p>`),"")
+    const resultMessage = message.reduce((total,add) => (total += `<p>${add}${(typeof add !== 'number') ?"를 선택":"원을 투입"}했습니다.</p>`),"")
     return resultMessage;
   }
 
   updateMessageView(data) {
     this.selectItem.push(data.name);
-    this.messageEl.innerHTML = this.updateMessage(this.selectItem)
+    this.renderMessage();
   }
 
   updateStatePanelView(data) {
-    this.statusMoney = data;
-    this.messageEl.innerHTML = `${data}원이 투입되었습니다.`;
-    this.updateMoneyView();
+    this.selectItem.push(parseInt(data));
+    this.renderMessage()
   }
-
+  renderMessage(){
+    this.messageEl.innerHTML = this.updateMessage(this.selectItem)
+  }
   updateCalcMoney(data) {
     this.statusMoney -= data.price;
-    this.updateMoneyView();
+    this.updateMoneyView(this.statusMoney);
   }
 
-  updateMoneyView(){
+  updateMoneyView(data){
+    this.statusMoney = data;
     this.moneyEl.innerHTML = `<span>${this.statusMoney}</span>`;
   }
 
