@@ -1,4 +1,4 @@
-import { selectorNames } from "../util/constant.js";
+import { selectorNames, errorMessage } from "../util/constant.js";
 import { statePanel } from "./template.js";
 
 export default class StatePanelView {
@@ -8,7 +8,7 @@ export default class StatePanelView {
     this.messageEl = null;
     this.money = null;
     this.selectItem = [];
-    this.statusMoney = null;
+    this.statusMoney = 0;
   }
 
   registerAsObserver() {
@@ -16,6 +16,7 @@ export default class StatePanelView {
     this.vendingMachineModel.addObserver("loadData", this.render.bind(this));
     this.vendingMachineModel.addObserver("inputMoney", this.updateStatePanelView.bind(this));
     this.vendingMachineModel.addObserver("purchaseItem", this.updateMessageView.bind(this));
+    this.vendingMachineModel.addObserver("throwError", this.updateErrorView.bind(this));
     this.vendingMachineModel.addObserver("purchaseItem", this.updateCalcMoney.bind(this));
     this.walletModel.addObserver("purchaseItem", this.clearStatePanelView.bind(this));
   }
@@ -30,24 +31,29 @@ export default class StatePanelView {
 
   updateMessageView(data) {
     // 현황판 업데이트
+    // if(!data) return this.messageEl.innerHTML = `${errorMassage.notEnoughMoney}`
     this.selectItem.push(data);
     const selectedMessage = this.selectItem.reduce((addMessage, item) => (addMessage += `<p>${item.name} 선택했습니다.</p>`),"");
     this.messageEl.innerHTML = selectedMessage;
   }
   
   updateStatePanelView(data) {
+    // if(!data) return this.updateMoneyView();
     this.statusMoney = data;
     this.messageEl.innerHTML = `총 투입금액은 ${this.statusMoney}원 입니다.`;
     this.updateMoneyView();
   }
   updateCalcMoney(data) {
+    // if(!data) return this.statusMoney;
     this.statusMoney -= data.price;
     this.updateMoneyView();
   }
   updateMoneyView(){
     this.moneyEl.innerHTML = `<span>${this.statusMoney}</span>`;
   }
-
+  updateErrorView(errormassage) {
+    this.messageEl.innerHTML = `<P>${errormassage}</P>`;
+  }
   clearStatePanelView() {
     // 상태 패널 초기화
     this.statusMoney = null;

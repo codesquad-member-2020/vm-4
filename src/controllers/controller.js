@@ -1,3 +1,4 @@
+import { errorMessage } from "../util/constant.js";
 export default class Controller {
   constructor({
     model: { vendingMachineModel, walletModel },
@@ -39,12 +40,10 @@ export default class Controller {
   }
   calcMoney(menuId) {
     let selectedItem = this.itemData.find(menu => menu.id == menuId);
+    if (this.totalMoney < selectedItem.price)
+      return this.vendingMachineModel.throwError(errorMessage.notEnoughMoney);
     this.totalMoney -= selectedItem.price;
     this.vendingMachineModel.setSelectedItem(selectedItem);
-  }
-
-  connectWithVendingModel(data) {
-    this.vendingMachineModel.updateWhenInputMoney(data);
   }
 
   async init() {

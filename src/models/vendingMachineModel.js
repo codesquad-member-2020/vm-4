@@ -26,6 +26,9 @@ export default class VendingMachineModel extends Observable {
   setSelectedItem(selectedItem) {
     this.notify("purchaseItem", selectedItem);
   }
+  throwError(errorMessage) {
+    this.notify("throwError", errorMessage);
+  }
   // getBackMoney() {
   //   this.notify("purchaseItem", this.inputMoney);
   // }
