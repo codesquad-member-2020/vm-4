@@ -1,4 +1,4 @@
-import { selectorNames, observerType } from "../util/constant.js";
+import { selectorNames, observerType } from "../../util/constant.js";
 import { wallet } from "./template.js";
 
 export default class WalletView {

@@ -1,6 +1,6 @@
 export default class Observable {
   constructor() {
-    this._observers = { loadData: new Set(), purchaseItem: new Set(), inputMoney: new Set() };
+    this._observers = { loadData: new Set(), purchaseItem: new Set(), inputMoney: new Set(), inputMoneyMsg: new Set(), completed: new Set(), throwError: new Set() };
   }
 
   addObserver(type, observer) {

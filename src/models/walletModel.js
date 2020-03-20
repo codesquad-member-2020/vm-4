@@ -1,5 +1,5 @@
-import Observable from "../util/observable.js";
-import { observerType, moneyTypeList } from "../util/constant.js";
+import Observable from "../../util/observable.js";
+import { observerType, moneyTypeList } from "../../util/constant.js";
 
 export default class WalletModel extends Observable {
   constructor(requestUrl, httpRequestModule) {

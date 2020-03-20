@@ -232,6 +232,17 @@ h1 {
   background: #2cb69c;
 }
 
+#vending-machine #vm-items .item-list li.active {
+  border: 1px solid #e75748;
+  outline: 1px dashed #e75748;
+  outline-offset: -5px;
+}
+
+#vending-machine #vm-items .item-list li.active span {
+  color: #fff;
+  background: #e75748;
+}
+
 #vending-machine #vm-state {
   padding: 0 10px;
   width: 35%;

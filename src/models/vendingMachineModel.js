@@ -1,4 +1,4 @@
-import Observable from "../util/observable.js";
+import Observable from "../../util/observable.js";
 
 export default class VendingMachineModel extends Observable {
   constructor(requestUrl, httpRequestModule) {
@@ -6,8 +6,9 @@ export default class VendingMachineModel extends Observable {
     this.url = requestUrl;
     this.http = httpRequestModule;
     this.menu = null;
-    this.selectedMenu = [];
+    this.inputMoney = null;
   }
+
   getInitialData() {
     return new Promise(res => {
       res(
@@ -18,20 +19,26 @@ export default class VendingMachineModel extends Observable {
         })
       );
     });
-    // response받은 데이터를 this.menu에 할당
-    // 데이터 로드가 완료되면 notify 메소드 실행하여 observers(Views) 업데이트
   }
-  inputMoney(price) {
-    this.notify("inputMoney", price);
+
+  updateWhenInputMoney(inputMoney) {
+    this.notify("inputMoney", inputMoney);
   }
-  matchingMenu(price) {
-    this.menu.forEach(menu => {
-      if (menu.price <= price) return this.selectedMenu.push(menu);
-    });
-    this.notify("inputMoney", this.selectedMenu);
+
+  updateInputMoneyMsg(inputMoney){
+    this.notify("inputMoneyMsg", inputMoney);
   }
-  setSelectedItem(menuId) {
-    let selectedItem = this.menu.find(menu => menu.id == menuId);
+
+  setSelectedItem(selectedItem) {
     this.notify("purchaseItem", selectedItem);
+  }
+
+  throwError(errorMessage) {
+    this.notify("throwError", errorMessage);
+  }
+
+  init(){
+    const init = '초기화';
+    this.notify("completed", init);
   }
 }

@@ -1,4 +1,4 @@
-import httpRequest from "./util/http.js";
+import httpRequest from "../util/http.js";
 import VendingMachineModel from "./models/vendingMachineModel.js";
 import WalletModel from "./models/walletModel.js";
 import ItemPanelView from "./views/itemPanelView.js";
