@@ -1,42 +1,22 @@
 import Observable from "../util/observable.js";
-import { observerType, moneyTypeList } from "../util/constant.js";
+import { observerType, moneyTypeList, mockData } from "../util/constant.js";
 
 export default class WalletModel extends Observable {
-  constructor(requestUrl, httpRequestModule) {
+  constructor() {
     super();
-    this.url = requestUrl;
-    this.http = httpRequestModule;
     this.moneyList = null;
     this.total = 0;
   }
 
   getInitialData() {
-    const walletDB = JSON.parse(localStorage.getItem("walletDB"));
-    if (walletDB) {
-      this.moneyList = walletDB.moneyList;
-      this.total = walletDB.total;
-      this.notify(observerType.loadData, { moneyList: this.moneyList, total: this.total });
-      return;
-    }
-    this.fetchData();
-  }
-
-  fetchData() {
-    const { url, http } = this;
-    http.get(url).then(data => {
-      this.setDefaultData(data);
-      this.updateLocalStorage(data, this.total);
-      this.notify(observerType.loadData, { moneyList: this.moneyList, total: this.total });
-    });
-  }
-
-  setDefaultData(data) {
+    this.moneyList = mockData.wallet;
     let total = 0;
-    for (const money in data) {
-      total += money * data[money];
+    for (const [money, count] of Object.entries(this.moneyList)) {
+      total += money * count;
     }
     this.total = total;
-    this.moneyList = data;
+    this.updateLocalStorage(this.moneyList, total);
+    this.notify(observerType.loadData, { moneyList: this.moneyList, total });
   }
 
   updateLocalStorage(moneyList, total) {
