@@ -11,6 +11,7 @@ export default class Controller {
     this.walletView = walletView;
     this.selectedItemId = [];
     this.itemData = null;
+    this.totalMoney = null;
   }
 
   itemClickHandler(selectNumber) {
@@ -24,8 +25,21 @@ export default class Controller {
   }
 
   walletClickHandler(selectedMoney) {
+    this.getInputMoney(selectedMoney);
     this.vendingMachineModel.updateWhenInputMoney(selectedMoney);
     this.walletModel.updateWhenInputMoney(selectedMoney);
+  }
+
+  getInputMoney(selectedMoney) {
+    this.totalMoney += parseInt(selectedMoney);
+    console.log(this.totalMoney);
+  } 
+  calcMoney(menuId){
+
+  }
+
+  connectWithVendingModel(data){
+    this.vendingMachineModel.updateWhenInputMoney(data)
   }
 
   async init() {
@@ -39,7 +53,7 @@ export default class Controller {
     await this.walletModel.getInitialData();
 
     // cached itemData
-    this.itemData = JSON.parse(localStorage.getItem(""));
+    this.itemData = JSON.parse(localStorage.getItem("menuDB"));
 
     // bind eventListeners
     this.statePanelView.bindOnClickListener(this.itemClickHandler.bind(this));

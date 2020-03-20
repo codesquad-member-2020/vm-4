@@ -27,10 +27,11 @@ export default class ItemPanelView {
   }
 
   updateItemPanelView(data) {
-    this.statusMoney = data;
+    typeof data === "object" ? this.statusMoney -= data.price : this.statusMoney = data;
     const itemList = document.querySelectorAll(".item-list li");
     const itemListArray = Array.from(itemList);
     const filterItems = this.menu.filter(v => v.price <= this.statusMoney);
+    console.log('itemView',this.statusMoney);
     itemListArray.forEach(v => v.classList.remove("active"));
     filterItems.forEach(element => {
       itemListArray[element.id - 1].classList.add("active");

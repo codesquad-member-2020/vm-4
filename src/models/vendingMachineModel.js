@@ -20,19 +20,16 @@ export default class VendingMachineModel extends Observable {
       );
     });
   }
-  updateWhenInputMoney(price) {
-    this.inputMoney += parseInt(price);
+  updateWhenInputMoney(inputMoney) {
+    this.inputMoney += parseInt(inputMoney);
     this.notify("inputMoney", this.inputMoney);
-  }
-  matchingMenu(price) {
-    this.menu.forEach(menu => {
-      if (menu.price <= price) return this.selectedMenu.push(menu);
-    });
-    this.notify("inputMoney", this.selectedMenu);
   }
   setSelectedItem(menuId) {
     let selectedItem = this.menu.find(menu => menu.id == menuId);
     this.inputMoney -= selectedItem.price;
     this.notify("purchaseItem", selectedItem);
   }
+  // getBackMoney() {
+  //   this.notify("purchaseItem", this.inputMoney);
+  // }
 }
