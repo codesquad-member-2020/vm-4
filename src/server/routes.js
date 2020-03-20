@@ -8,4 +8,4 @@ const routes = {
   wallet: WALLET
 };
 
-module.exports = routes;
+export default routes;

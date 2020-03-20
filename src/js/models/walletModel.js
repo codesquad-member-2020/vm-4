@@ -1,30 +1,37 @@
 import Observable from "../../util/observable.js";
-import { observerType, moneyTypeList } from "../../util/constant.js";
+import { observerType, moneyTypeList, mockData } from "../../util/constant.js";
 
 export default class WalletModel extends Observable {
-  constructor(requestUrl, httpRequestModule) {
+  constructor() {
     super();
-    this.url = requestUrl;
-    this.http = httpRequestModule;
     this.moneyList = null;
     this.total = 0;
   }
 
   getInitialData() {
-    const { url, http } = this;
-    http.get(url).then(data => {
-      this.setData(data);
-      this.notify(observerType.loadData, { moneyList: this.moneyList, total: this.total });
-    });
-  }
-
-  setData(data) {
+    this.moneyList = mockData.wallet;
     let total = 0;
-    for (const money in data) {
-      total += money * data[money];
+    for (const [money, count] of Object.entries(this.moneyList)) {
+      total += money * count;
     }
     this.total = total;
-    this.moneyList = data;
+    this.updateLocalStorage(this.moneyList, total);
+    this.notify(observerType.loadData, { moneyList: this.moneyList, total });
+  }
+
+  updateLocalStorage(moneyList, total) {
+    const isObject =
+      typeof moneyList === "object" && !Array.isArray(moneyList) && moneyList !== null;
+    const isNumber = typeof total === "number" && total >= 0;
+    try {
+      if (isObject && isNumber) {
+        localStorage.setItem("walletDB", JSON.stringify({ moneyList, total }));
+      } else {
+        throw Error("유효한 데이터가 아닙니다.");
+      }
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   updateWhenInputMoney(money) {
@@ -32,7 +39,8 @@ export default class WalletModel extends Observable {
     if (moneyList[money] === 0) return;
     moneyList[money] -= 1;
     this.total -= money;
-    this.notify(observerType.inputMoney, { moneyList: moneyList, total: this.total });
+    this.updateLocalStorage(moneyList, this.total);
+    this.notify(observerType.inputMoney, { moneyList, total: this.total });
   }
 
   updateWhenPurchaseItem(changes) {
@@ -45,12 +53,7 @@ export default class WalletModel extends Observable {
       }
     }
     moneyTypeList.forEach(processChanges.bind(this));
-    // this.requestUpdate(this.moneyList);
+    this.updateLocalStorage(this.moneyList, this.total);
     this.notify(observerType.purchaseItem, { moneyList: this.moneyList, total: this.total });
-  }
-
-  requestUpdate(data) {
-    const { url, http } = this;
-    http.patch(url, data);
   }
 }

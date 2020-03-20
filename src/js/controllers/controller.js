@@ -57,7 +57,7 @@ export default class Controller {
     this.statePanelView.registerAsObserver();
     this.walletView.registerAsObserver();
 
-    // fetch data & render view
+    // fetch data & render View
     await this.vendingMachineModel.getInitialData();
     this.walletModel.getInitialData();
 
