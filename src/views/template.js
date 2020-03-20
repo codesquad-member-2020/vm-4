@@ -12,6 +12,7 @@ export function itemPanel(_, data) {
 export function statePanel(_, data) {
   const { VM_STATE, STATE_MONEY, STATE_NUMBERS, STATE_MESSAGE } = selectorNames;
   const numbers = [...Array(11).keys()].map(i => i + 1);
+  numbers[numbers.length - 2] = "0";
   numbers[numbers.length - 1] = "선택";
 
   const buttons = numbers.reduce((btns, number) => {
