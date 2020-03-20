@@ -18,7 +18,7 @@ export default class StatePanelView {
     this.vendingMachineModel.addObserver("purchaseItem", this.updateMessageView.bind(this));
     this.vendingMachineModel.addObserver("throwError", this.updateErrorView.bind(this));
     this.vendingMachineModel.addObserver("purchaseItem", this.updateCalcMoney.bind(this));
-    this.walletModel.addObserver("purchaseItem", this.clearStatePanelView.bind(this));
+    this.vendingMachineModel.addObserver("completed", this.clearStatePanelView.bind(this));
   }
 
   render(data) {
@@ -30,7 +30,7 @@ export default class StatePanelView {
   }
 
   updateMessage(message){
-    const resultMessage = message.reduce((total,add) => (total += `<p>${add}${(typeof add !== 'number') ?"를 선택":"원을 투입"}했습니다.</p>`),"")
+    const resultMessage = message.reduce((total,add) => (total += `<p>${(typeof add !== 'number') ? ((typeof add !== 'object') ? add + "를 선택" : add.price + "원을 반환")  : add + "원을 투입"}했습니다.</p>`),"")
     return resultMessage;
   }
 
@@ -43,9 +43,11 @@ export default class StatePanelView {
     this.selectItem.push(parseInt(data));
     this.renderMessage()
   }
+
   renderMessage(){
     this.messageEl.innerHTML = this.updateMessage(this.selectItem)
   }
+
   updateCalcMoney(data) {
     this.statusMoney -= data.price;
     this.updateMoneyView(this.statusMoney);
@@ -61,8 +63,11 @@ export default class StatePanelView {
   }
 
   clearStatePanelView() {
+    this.selectItem.push({price:this.statusMoney});
+    this.renderMessage()
     this.statusMoney = 0;
     this.selectItem = [];
+    this.updateMoneyView(this.statusMoney);
   }
 
   bindOnClickListener(handler) {

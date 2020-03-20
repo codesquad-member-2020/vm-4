@@ -20,6 +20,7 @@ export default class Controller {
       const menuId = this.selectedItemId.join("");
       this.selectedItemId = [];
       this.calcMoney(menuId);
+      this.getBackMoney();
     } else {
       this.selectedItemId.push(selectNumber);
     }
@@ -38,6 +39,8 @@ export default class Controller {
 
   getBackMoney() {
     this.walletModel.updateWhenPurchaseItem(this.totalMoney);
+    this.vendingMachineModel.init();
+    this.totalMoney = 0;
   }
 
   calcMoney(menuId) {

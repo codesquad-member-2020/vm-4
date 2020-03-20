@@ -28,12 +28,17 @@ export default class VendingMachineModel extends Observable {
   updateInputMoneyMsg(inputMoney){
     this.notify("inputMoneyMsg", inputMoney);
   }
-  
+
   setSelectedItem(selectedItem) {
     this.notify("purchaseItem", selectedItem);
   }
 
   throwError(errorMessage) {
     this.notify("throwError", errorMessage);
+  }
+
+  init(){
+    const init = '초기화';
+    this.notify("completed", init);
   }
 }

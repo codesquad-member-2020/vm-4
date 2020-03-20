@@ -16,6 +16,7 @@ export default class ItemPanelView {
       this.updateItemPanelView.bind(this)
     );
     this.vendingMachineModel.addObserver("purchaseItem", this.updateItemPanelView.bind(this));
+    this.vendingMachineModel.addObserver("completed", this.init.bind(this));
   }
 
   render(data) {
@@ -34,5 +35,11 @@ export default class ItemPanelView {
     filterItems.forEach(element => {
       itemListArray[element.id - 1].classList.add("active");
     });
+  }
+
+  init(){
+    const itemList = document.querySelectorAll(".item-list li");
+    const itemListArray = Array.from(itemList);
+    itemListArray.forEach(v => v.classList.remove("active"));
   }
 }
