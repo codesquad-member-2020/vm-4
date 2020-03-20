@@ -20,3 +20,8 @@ export const observerType = {
 };
 
 export const moneyTypeList = [10000, 5000, 1000, 500, 100, 50, 10];
+
+export const errorMessage = {
+  notEnoughMoney : '금액이 부족합니다.',
+  notInputMoney : '금액을 투입해주세요.'
+}
