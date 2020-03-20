@@ -1,4 +1,4 @@
-import { selectorNames } from "../util/constant.js";
+import { selectorNames } from "../../util/constant.js";
 import { statePanel } from "./template.js";
 
 export default class StatePanelView {
@@ -13,18 +13,9 @@ export default class StatePanelView {
   registerAsObserver() {
     // 각각의 모델에 StatePanelView를 observer로 등록
     this.vendingMachineModel.addObserver("loadData", this.render.bind(this));
-    this.vendingMachineModel.addObserver(
-      "purchaseItem",
-      this.updateMessageView.bind(this)
-    );
-    this.walletModel.addObserver(
-      "inputMoney",
-      this.updateStatePanelView.bind(this)
-    );
-    this.walletModel.addObserver(
-      "purchaseItem",
-      this.clearStatePanelView.bind(this)
-    );
+    // this.vendingMachineModel.addObserver("purchaseItem", this.updateMessageView.bind(this));
+    // this.walletModel.addObserver("inputMoney", this.updateStatePanelView.bind(this));
+    // this.walletModel.addObserver("purchaseItem", this.clearStatePanelView.bind(this));
   }
 
   render(data) {
