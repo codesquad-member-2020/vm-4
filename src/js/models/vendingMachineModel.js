@@ -1,4 +1,4 @@
-import Observable from "../util/observable.js";
+import Observable from "../../util/observable.js";
 
 export default class VendingMachineModel extends Observable {
   constructor(requestUrl, httpRequestModule) {

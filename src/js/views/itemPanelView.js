@@ -1,4 +1,4 @@
-import { selectorNames } from "../util/constant.js";
+import { selectorNames } from "../../util/constant.js";
 import { itemPanel } from "./template.js";
 
 export default class ItemPanelView {

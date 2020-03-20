@@ -1,4 +1,4 @@
-import { selectorNames, errorMessage } from "../util/constant.js";
+import { selectorNames, errorMessage } from "../../util/constant.js";
 import { statePanel } from "./template.js";
 
 export default class StatePanelView {

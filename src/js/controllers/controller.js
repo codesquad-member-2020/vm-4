@@ -1,4 +1,4 @@
-import { errorMessage } from "../util/constant.js";
+import { errorMessage } from "../../util/constant.js";
 export default class Controller {
   constructor({
     model: { vendingMachineModel, walletModel },
