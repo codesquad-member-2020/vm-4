@@ -60,7 +60,7 @@ export default class WalletModel extends Observable {
     moneyList[money] -= 1;
     this.total -= money;
     this.updateLocalStorage(moneyList, this.total);
-    this.notify(observerType.inputMoney, { moneyList: moneyList, total: this.total });
+    this.notify(observerType.inputMoney, { moneyList, total: this.total });
   }
 
   updateWhenPurchaseItem(changes) {
