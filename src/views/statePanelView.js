@@ -9,6 +9,7 @@ export default class StatePanelView {
     this.money = null;
     this.selectItem = [];
     this.statusMoney = 0;
+    this.logMessage = [];
   }
 
   registerAsObserver() {
@@ -28,13 +29,23 @@ export default class StatePanelView {
     this.messageEl = document.querySelector(".state-message");
     this.moneyEl = document.querySelector(".state-money");
   }
-
+  pushLogMessage(log, message){
+    log.push(message);
+    return log;
+  }
+  updateMessage(message){
+    const resultMessage = message.reduce((total,add) => (total += `<p>${add}</p>`),"")
+    console.log('updateMessage()', resultMessage);
+    return resultMessage;
+  }
   updateMessageView(data) {
     // 현황판 업데이트
     // if(!data) return this.messageEl.innerHTML = `${errorMassage.notEnoughMoney}`
     this.selectItem.push(data);
-    const selectedMessage = this.selectItem.reduce((addMessage, item) => (addMessage += `<p>${item.name} 선택했습니다.</p>`),"");
-    this.messageEl.innerHTML = selectedMessage;
+    const selectedMessage = this.selectItem.reduce((addMessage, item) => (addMessage += `${item.name} 선택했습니다.`),"");
+    // this.messageEl.innerHTML = selectedMessage;
+    this.pushLogMessage(this.logMessage, selectedMessage)
+    this.messageEl.innerHTML = this.updateMessage(this.logMessage)
   }
   
   updateStatePanelView(data) {
@@ -56,7 +67,7 @@ export default class StatePanelView {
   }
   clearStatePanelView() {
     // 상태 패널 초기화
-    this.statusMoney = null;
+    this.statusMoney = 0;
     this.selectItem = [];
   }
 
