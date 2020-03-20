@@ -1,4 +1,4 @@
-import { selectorNames } from "../util/constant.js";
+import { selectorNames } from "../../util/constant.js";
 
 export function itemPanel(_, data) {
   const { VM_ITEMS, ITEM_LIST } = selectorNames;

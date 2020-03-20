@@ -1,4 +1,4 @@
-import { errorMessage } from "../util/constant.js";
+import { errorMessage } from "../../util/constant.js";
 export default class Controller {
   constructor({
     model: { vendingMachineModel, walletModel },
@@ -57,9 +57,9 @@ export default class Controller {
     this.statePanelView.registerAsObserver();
     this.walletView.registerAsObserver();
 
-    // fetch data & render UI
+    // fetch data & render View
     await this.vendingMachineModel.getInitialData();
-    await this.walletModel.getInitialData();
+    this.walletModel.getInitialData();
 
     // cached itemData
     this.itemData = JSON.parse(localStorage.getItem("menuDB"));
