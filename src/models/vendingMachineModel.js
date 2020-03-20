@@ -8,6 +8,7 @@ export default class VendingMachineModel extends Observable {
     this.menu = null;
     this.inputMoney = null;
   }
+
   getInitialData() {
     return new Promise(res => {
       res(
@@ -19,17 +20,17 @@ export default class VendingMachineModel extends Observable {
       );
     });
   }
+
   updateWhenInputMoney(inputMoney) {
     this.inputMoney = inputMoney;
     this.notify("inputMoney", this.inputMoney);
   }
+
   setSelectedItem(selectedItem) {
     this.notify("purchaseItem", selectedItem);
   }
+  
   throwError(errorMessage) {
     this.notify("throwError", errorMessage);
   }
-  // getBackMoney() {
-  //   this.notify("purchaseItem", this.inputMoney);
-  // }
 }

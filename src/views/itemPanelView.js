@@ -10,7 +10,6 @@ export default class ItemPanelView {
   }
 
   registerAsObserver() {
-    // 각각의 모델에 ItemPanelView를 observer로 등록
     this.vendingMachineModel.addObserver("loadData", this.render.bind(this));
     this.vendingMachineModel.addObserver(
       "inputMoney",

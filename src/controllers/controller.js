@@ -20,7 +20,6 @@ export default class Controller {
       const menuId = this.selectedItemId.join("");
       this.selectedItemId = [];
       this.calcMoney(menuId);
-      // this.vendingMachineModel.setSelectedItem(menuId);
     } else {
       this.selectedItemId.push(selectNumber);
     }
@@ -35,9 +34,11 @@ export default class Controller {
     this.totalMoney += parseInt(selectedMoney);
     this.vendingMachineModel.updateWhenInputMoney(this.totalMoney);
   }
+
   getBackMoney() {
     this.walletModel.updateWhenPurchaseItem(this.totalMoney);
   }
+  
   calcMoney(menuId) {
     let selectedItem = this.itemData.find(menu => menu.id == menuId);
     if (this.totalMoney < selectedItem.price)
