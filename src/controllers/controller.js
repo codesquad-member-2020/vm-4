@@ -18,7 +18,8 @@ export default class Controller {
     if (selectNumber === "선택") {
       const menuId = this.selectedItemId.join("");
       this.selectedItemId = [];
-      this.vendingMachineModel.setSelectedItem(menuId);
+      this.calcMoney(menuId);
+      // this.vendingMachineModel.setSelectedItem(menuId);
     } else {
       this.selectedItemId.push(selectNumber);
     }
@@ -26,20 +27,24 @@ export default class Controller {
 
   walletClickHandler(selectedMoney) {
     this.getInputMoney(selectedMoney);
-    this.vendingMachineModel.updateWhenInputMoney(selectedMoney);
     this.walletModel.updateWhenInputMoney(selectedMoney);
   }
 
   getInputMoney(selectedMoney) {
     this.totalMoney += parseInt(selectedMoney);
-    console.log(this.totalMoney);
-  } 
-  calcMoney(menuId){
-
+    this.vendingMachineModel.updateWhenInputMoney(this.totalMoney);
+  }
+  getBackMoney() {
+    this.walletModel.updateWhenPurchaseItem(this.totalMoney);
+  }
+  calcMoney(menuId) {
+    let selectedItem = this.itemData.find(menu => menu.id == menuId);
+    this.totalMoney -= selectedItem.price;
+    this.vendingMachineModel.setSelectedItem(selectedItem);
   }
 
-  connectWithVendingModel(data){
-    this.vendingMachineModel.updateWhenInputMoney(data)
+  connectWithVendingModel(data) {
+    this.vendingMachineModel.updateWhenInputMoney(data);
   }
 
   async init() {
