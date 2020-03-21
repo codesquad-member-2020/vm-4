@@ -1,4 +1,5 @@
 import { errorMessage } from "../../util/constant.js";
+
 export default class Controller {
   constructor({
     model: { vendingMachineModel, walletModel },
@@ -51,17 +52,17 @@ export default class Controller {
     this.vendingMachineModel.setSelectedItem(selectedItem);
   }
 
-  async init() {
+  init() {
     // register observers
     this.itemPanelView.registerAsObserver();
     this.statePanelView.registerAsObserver();
     this.walletView.registerAsObserver();
 
     // fetch data & render View
-    await this.vendingMachineModel.getInitialData();
+    this.vendingMachineModel.getInitialData();
     this.walletModel.getInitialData();
 
-    // cached itemData
+    // get cached itemData
     this.itemData = JSON.parse(localStorage.getItem("menuDB"));
 
     // bind eventListeners

@@ -1,31 +1,24 @@
 import Observable from "../../util/observable.js";
+import { mockData } from "../../util/constant.js";
 
 export default class VendingMachineModel extends Observable {
-  constructor(requestUrl, httpRequestModule) {
+  constructor() {
     super();
-    this.url = requestUrl;
-    this.http = httpRequestModule;
     this.menu = null;
     this.inputMoney = null;
   }
 
   getInitialData() {
-    return new Promise(res => {
-      res(
-        this.http.get(this.url).then(data => {
-          this.menu = data;
-          localStorage.setItem("menuDB", JSON.stringify(this.menu));
-          this.notify("loadData", this.menu);
-        })
-      );
-    });
+    this.menu = mockData.items;
+    localStorage.setItem("menuDB", JSON.stringify(this.menu));
+    this.notify("loadData", this.menu);
   }
 
   updateWhenInputMoney(inputMoney) {
     this.notify("inputMoney", inputMoney);
   }
 
-  updateInputMoneyMsg(inputMoney){
+  updateInputMoneyMsg(inputMoney) {
     this.notify("inputMoneyMsg", inputMoney);
   }
 
@@ -37,8 +30,8 @@ export default class VendingMachineModel extends Observable {
     this.notify("throwError", errorMessage);
   }
 
-  init(){
-    const init = '초기화';
+  init() {
+    const init = "초기화";
     this.notify("completed", init);
   }
 }
