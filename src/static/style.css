@@ -207,7 +207,8 @@ h1 {
         #vending-machine #vm-state .state-numbers > ul li {
           width: 33.3%; }
           #vending-machine #vm-state .state-numbers > ul li button {
-            border: 1px solid #353746; }
+            border: 1px solid #353746;
+            cursor: pointer; }
           #vending-machine #vm-state .state-numbers > ul li:last-child {
             width: calc(100% - 33.3%); }
             #vending-machine #vm-state .state-numbers > ul li:last-child button {
@@ -247,7 +248,8 @@ h1 {
       margin: 5px;
       font-size: 13px; }
       #wallet .wallet-state ul li button {
-        width: 70%; }
+        width: 70%;
+        cursor: pointer; }
       #wallet .wallet-state ul li span {
         width: 20%;
         font-size: 13px;
