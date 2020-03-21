@@ -1,3 +1,8 @@
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css);
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css);
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css);
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css);
+@charset "UTF-8";
 /* Layout */
 /* color */
 /* Font-family */
@@ -21,7 +26,7 @@ time, mark, audio, video {
   padding: 0;
   border: 0;
   outline: 0;
-  font-family: AppleSDGothicNeo, sans-serif;
+  font-family: "Spoqa Han Sans", sans-serif;
   font-size: 100%;
   letter-spacing: -0.02em;
   vertical-align: baseline;
@@ -142,15 +147,13 @@ h1 {
 /* Font-size */
 #vending-machine {
   display: flex;
-  width: 600px;
-  margin: 20px auto;
+  width: 700px;
   padding: 20px;
-  border: 3px solid #000;
-  border-radius: 5px;
+  border-radius: 15px;
   background: #353746; }
   #vending-machine #vm-items {
     width: 65%;
-    padding: 10px;
+    padding: 5px;
     border: 2px solid #e75748;
     border-radius: 5px;
     background: #fdf1d7; }
@@ -158,14 +161,23 @@ h1 {
       display: flex;
       flex-wrap: wrap; }
       #vending-machine #vm-items .item-list li {
-        width: 20%;
-        margin: 2.5%;
-        padding: 10px;
+        position: relative;
+        width: 22%;
+        min-height: 80px;
+        margin: 1.5%;
+        padding: 10px 5px;
+        font-size: 14px;
+        line-height: 1.2;
+        word-break: keep-all;
         text-align: center;
         border: 1px solid #353746;
         background: #fff; }
         #vending-machine #vm-items .item-list li span {
+          position: absolute;
           display: block;
+          width: calc(100% - 10px);
+          bottom: 10px;
+          left: 5px;
           margin-top: 10px;
           font-size: 13px;
           line-height: 1.5;
@@ -179,7 +191,7 @@ h1 {
             color: #fff;
             background: #e75748; }
   #vending-machine #vm-state {
-    padding: 0 10px;
+    padding: 0 0 0 10px;
     width: 35%; }
     #vending-machine #vm-state .state-money {
       margin-bottom: 10px;
@@ -202,8 +214,11 @@ h1 {
               color: #fff;
               background: #e75748; }
     #vending-machine #vm-state .state-message {
-      min-height: 100px;
+      overflow-y: auto;
+      height: 200px;
       padding: 10px;
+      font-size: 14px;
+      line-height: 1.4;
       border: 2px solid #e75748;
       border-radius: 5px;
       background: #fdf1d7; }
@@ -213,28 +228,59 @@ h1 {
 /* Font-family */
 /* Font-size */
 #wallet {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  width: 600px;
-  margin: 20px auto; }
+  width: 300px;
+  padding: 15px;
+  margin-left: 10px;
+  border-radius: 15px;
+  background: #dfe2e9; }
   #wallet .wallet-state {
-    width: 80%; }
-    #wallet .wallet-state ul {
+    width: 100%;
+    padding: 10px;
+    border-radius: 15px;
+    background: #fff;
+    -webkit-box-shadow: 5px 5px 10px 0px #d1d1d1;
+    -moz-box-shadow: 5px 5px 10px 0px #d1d1d1;
+    box-shadow: 5px 5px 10px 0px #d1d1d1; }
+    #wallet .wallet-state ul li {
       display: flex;
-      flex-wrap: wrap; }
-      #wallet .wallet-state ul li {
-        display: flex;
-        align-items: center;
-        width: 25%;
-        margin: 5px 0; }
-        #wallet .wallet-state ul li button {
-          width: 50%; }
-        #wallet .wallet-state ul li span {
-          width: 50%;
-          font-size: 13px;
-          text-align: center; }
+      align-items: center;
+      margin: 5px;
+      font-size: 13px; }
+      #wallet .wallet-state ul li button {
+        width: 70%; }
+      #wallet .wallet-state ul li span {
+        width: 20%;
+        font-size: 13px;
+        text-align: right; }
   #wallet .wallet-total {
-    width: 20%;
-    font-size: 30px; }
+    margin: 15px 0;
+    padding: 15px;
+    font-size: 25px;
+    text-align: center;
+    color: #fff;
+    border-radius: 15px;
+    background: #353746;
+    background: linear-gradient(10deg, #353746 0%, #5c6188 100%); }
+    #wallet .wallet-total::before {
+      content: "₩ "; }
+
+button {
+  -webkit-transition: all 200ms cubic-bezier(0.39, 0.5, 0.15, 1.36);
+  -moz-transition: all 200ms cubic-bezier(0.39, 0.5, 0.15, 1.36);
+  -ms-transition: all 200ms cubic-bezier(0.39, 0.5, 0.15, 1.36);
+  -o-transition: all 200ms cubic-bezier(0.39, 0.5, 0.15, 1.36);
+  transition: all 200ms cubic-bezier(0.39, 0.5, 0.15, 1.36);
+  color: rgba(18, 17, 22, 0.6);
+  box-shadow: rgba(18, 17, 22, 0.4) 0 0px 0px 1px inset;
+  display: block;
+  text-decoration: none;
+  border-radius: 3px; }
+
+button:hover {
+  color: rgba(255, 255, 255, 0.85);
+  box-shadow: rgba(30, 22, 54, 0.7) 0 0px 0px 40px inset; }
+
+#app {
+  display: flex;
+  justify-content: center; }
 
