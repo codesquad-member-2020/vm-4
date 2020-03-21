@@ -1,4 +1,5 @@
-import { selectorNames } from "../../util/constant.js";
+import { selectorNames, observerType } from "../../util/constant.js";
+import { $selectAll, $getById } from "../../util/utilFunc.js";
 import { itemPanel } from "./template.js";
 
 export default class ItemPanelView {
@@ -10,25 +11,28 @@ export default class ItemPanelView {
   }
 
   registerAsObserver() {
-    this.vendingMachineModel.addObserver("loadData", this.render.bind(this));
+    this.vendingMachineModel.addObserver(observerType.loadData, this.render.bind(this));
     this.vendingMachineModel.addObserver(
-      "inputMoney",
+      observerType.inputMoney,
       this.updateItemPanelView.bind(this)
     );
-    this.vendingMachineModel.addObserver("purchaseItem", this.updateItemPanelView.bind(this));
-    this.vendingMachineModel.addObserver("completed", this.init.bind(this));
+    this.vendingMachineModel.addObserver(
+      observerType.purchaseItem,
+      this.updateItemPanelView.bind(this)
+    );
+    this.vendingMachineModel.addObserver(observerType.completed, this.init.bind(this));
   }
 
   render(data) {
     this.menu = data;
-    const vendingMachine = document.getElementById(selectorNames.VM);
+    const vendingMachine = $getById(selectorNames.VM);
     const itemPanelView = itemPanel`${data}`;
     vendingMachine.insertAdjacentHTML("beforeend", itemPanelView);
   }
 
   updateItemPanelView(data) {
-    typeof data === "object" ? this.statusMoney -= data.price : this.statusMoney = data;
-    const itemList = document.querySelectorAll(".item-list li");
+    typeof data === "object" ? (this.statusMoney -= data.price) : (this.statusMoney = data);
+    const itemList = $selectAll(".item-list li");
     const itemListArray = Array.from(itemList);
     const filterItems = this.menu.filter(v => v.price <= this.statusMoney);
     itemListArray.forEach(v => v.classList.remove("active"));
@@ -37,8 +41,8 @@ export default class ItemPanelView {
     });
   }
 
-  init(){
-    const itemList = document.querySelectorAll(".item-list li");
+  init() {
+    const itemList = $selectAll(".item-list li");
     const itemListArray = Array.from(itemList);
     itemListArray.forEach(v => v.classList.remove("active"));
   }

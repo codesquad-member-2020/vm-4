@@ -1,5 +1,5 @@
 import Observable from "../../util/observable.js";
-import { mockData } from "../../util/constant.js";
+import { observerType, mockData } from "../../util/constant.js";
 
 export default class VendingMachineModel extends Observable {
   constructor() {
@@ -9,29 +9,29 @@ export default class VendingMachineModel extends Observable {
   }
 
   getInitialData() {
-    this.menu = mockData.items;
+    this.menu = mockData.menu;
     localStorage.setItem("menuDB", JSON.stringify(this.menu));
-    this.notify("loadData", this.menu);
+    this.notify(observerType.loadData, this.menu);
   }
 
   updateWhenInputMoney(inputMoney) {
-    this.notify("inputMoney", inputMoney);
+    this.notify(observerType.inputMoney, inputMoney);
   }
 
   updateInputMoneyMsg(inputMoney) {
-    this.notify("inputMoneyMsg", inputMoney);
+    this.notify(observerType.inputMoneyMsg, inputMoney);
   }
 
   setSelectedItem(selectedItem) {
-    this.notify("purchaseItem", selectedItem);
+    this.notify(observerType.purchaseItem, selectedItem);
   }
 
   throwError(errorMessage) {
-    this.notify("throwError", errorMessage);
+    this.notify(observerType.throwError, errorMessage);
   }
 
   init() {
     const init = "초기화";
-    this.notify("completed", init);
+    this.notify(observerType.completed, init);
   }
 }

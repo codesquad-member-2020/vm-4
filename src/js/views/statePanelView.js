@@ -1,4 +1,5 @@
-import { selectorNames, errorMessage } from "../../util/constant.js";
+import { selectorNames, observerType } from "../../util/constant.js";
+import { $select, $getById } from "../../util/utilFunc.js";
 import { statePanel } from "./template.js";
 
 export default class StatePanelView {
@@ -12,25 +13,47 @@ export default class StatePanelView {
   }
 
   registerAsObserver() {
-    this.vendingMachineModel.addObserver("loadData", this.render.bind(this));
-    this.vendingMachineModel.addObserver("inputMoney", this.updateMoneyView.bind(this));
-    this.vendingMachineModel.addObserver("inputMoneyMsg", this.updateStatePanelView.bind(this));
-    this.vendingMachineModel.addObserver("purchaseItem", this.updateMessageView.bind(this));
-    this.vendingMachineModel.addObserver("throwError", this.updateErrorView.bind(this));
-    this.vendingMachineModel.addObserver("purchaseItem", this.updateCalcMoney.bind(this));
-    this.vendingMachineModel.addObserver("completed", this.clearStatePanelView.bind(this));
+    this.vendingMachineModel.addObserver(observerType.loadData, this.render.bind(this));
+    this.vendingMachineModel.addObserver(observerType.inputMoney, this.updateMoneyView.bind(this));
+    this.vendingMachineModel.addObserver(
+      observerType.inputMoneyMsg,
+      this.updateStatePanelView.bind(this)
+    );
+    this.vendingMachineModel.addObserver(
+      observerType.purchaseItem,
+      this.updateMessageView.bind(this)
+    );
+    this.vendingMachineModel.addObserver(observerType.throwError, this.updateErrorView.bind(this));
+    this.vendingMachineModel.addObserver(
+      observerType.purchaseItem,
+      this.updateCalcMoney.bind(this)
+    );
+    this.vendingMachineModel.addObserver(
+      observerType.completed,
+      this.clearStatePanelView.bind(this)
+    );
   }
 
   render(data) {
-    const vendingMachine = document.getElementById(selectorNames.VM);
+    const vendingMachine = $getById(selectorNames.VM);
     const statePanelView = statePanel`${data}`;
     vendingMachine.insertAdjacentHTML("beforeend", statePanelView);
-    this.messageEl = document.querySelector(".state-message");
-    this.moneyEl = document.querySelector(".state-money");
+    this.messageEl = $select(".state-message");
+    this.moneyEl = $select(".state-money");
   }
 
-  updateMessage(message){
-    const resultMessage = message.reduce((total,add) => (total += `<p>${(typeof add !== 'number') ? ((typeof add !== 'object') ? add + "를 선택" : add.price + "원을 반환")  : add + "원을 투입"}했습니다.</p>`),"")
+  updateMessage(message) {
+    const resultMessage = message.reduce(
+      (total, add) =>
+        (total += `<p>${
+          typeof add !== "number"
+            ? typeof add !== "object"
+              ? add + "를 선택"
+              : add.price + "원을 반환"
+            : add + "원을 투입"
+        }했습니다.</p>`),
+      ""
+    );
     return resultMessage;
   }
 
@@ -41,11 +64,11 @@ export default class StatePanelView {
 
   updateStatePanelView(data) {
     this.selectItem.push(parseInt(data));
-    this.renderMessage()
+    this.renderMessage();
   }
 
-  renderMessage(){
-    this.messageEl.innerHTML = this.updateMessage(this.selectItem)
+  renderMessage() {
+    this.messageEl.innerHTML = this.updateMessage(this.selectItem);
   }
 
   updateCalcMoney(data) {
@@ -53,7 +76,7 @@ export default class StatePanelView {
     this.updateMoneyView(this.statusMoney);
   }
 
-  updateMoneyView(data){
+  updateMoneyView(data) {
     this.statusMoney = data;
     this.moneyEl.innerHTML = `<span>${this.statusMoney}</span>`;
   }
@@ -63,15 +86,15 @@ export default class StatePanelView {
   }
 
   clearStatePanelView() {
-    this.selectItem.push({price:this.statusMoney});
-    this.renderMessage()
+    this.selectItem.push({ price: this.statusMoney });
+    this.renderMessage();
     this.statusMoney = 0;
     this.selectItem = [];
     this.updateMoneyView(this.statusMoney);
   }
 
   bindOnClickListener(handler) {
-    const statePanelButtonArea = document.querySelector(".state-numbers");
+    const statePanelButtonArea = $select(".state-numbers");
     statePanelButtonArea.addEventListener("click", e => {
       if (e.target.nodeName !== "BUTTON") return;
       handler(e.target.value);
