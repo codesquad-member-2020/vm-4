@@ -20,23 +20,32 @@
 				width: 22%;
 				min-height: 80px;
 				margin: 1.5%;
-				padding: 10px 5px;
+				padding-top: 18px;
 				font-size: 14px;
 				line-height: 1.2;
 				word-break: keep-all;
 				text-align: center;
 				border: 1px solid $color-ci;
 				background: #fff;
+				&:not(:nth-child(3)) {
+					padding-top: 26px;
+				}
+				div {
+					position: absolute;
+					top: 0;
+					width: 100%;
+					color: #fff;
+					background: $color-ci;
+				}
 				span {
 					position: absolute;
 					display: block;
 					width: calc(100% - 10px);
-					bottom: 10px;
+					bottom: 5px;
 					left: 5px;
 					margin-top: 10px;
 					font-size: 13px;
 					line-height: 1.5;
-
 					border-radius: 3px;
 					background: #2cb69c;
 				}

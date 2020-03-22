@@ -3,7 +3,7 @@ import { selectorNames } from "../../util/constant.js";
 export function itemPanel(_, data) {
   const { VM_ITEMS, ITEM_LIST } = selectorNames;
   const itemList = data.reduce((list, item) => {
-    list += `<li>${item.name}<span>${item.price}</span></li>`;
+    list += `<li><div>${item.id}</div>${item.name}<span>${item.price}</span></li>`;
     return list;
   }, "");
   return `<div id=${VM_ITEMS}><ul class=${ITEM_LIST}>${itemList}</ul></div>`;
