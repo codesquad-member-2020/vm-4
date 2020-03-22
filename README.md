@@ -1,7 +1,7 @@
 # Vending Machine
 
 ### 📷 Screenshot
-![vending machine](https://i.postimg.cc/9Fq3Hx9G/image.png)
+![vending machine](https://i.postimg.cc/gcqVH43z/image.png)
 
 <br />
 
