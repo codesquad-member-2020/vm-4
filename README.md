@@ -20,6 +20,8 @@
 <br />
 
 ### ⚙️ Features
+<img src="https://i.postimg.cc/15DJNj6m/image.png" alt="views" width="400" />
+
 |feature|status|
 |:---|:---:|
 |`walletView`에서 동전을 누르면 `statePanelView`에 금액이 표시된다.|✔️|
@@ -43,8 +45,6 @@
 - observer를 등록할때 **type**인자를 함께 전달받아 이벤트(데이터로드, 동전투입, 상품구매 등)에 따라 선택적으로 notify하여 view를 업데이트 합니다.
 
 #### Views
-<img src="https://i.postimg.cc/15DJNj6m/image.png" alt="views" width="400" />
-
 - `itemPanelView`, `statePanelView`, `walletView`
 - 자신이 구독하고 있는 model로부터 데이터를 전달받아 화면에 표시하는 역할을 합니다. 
 - Observer 패턴에서 observer에 해당하며 model(observable)을 주입받아 내부에서 구독합니다.
