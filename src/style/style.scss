@@ -2,3 +2,7 @@
 @import 'var';
 @import 'vending-machine';
 @import 'wallet';
+#app {
+    display: flex;
+    justify-content: center;
+}

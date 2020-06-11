@@ -1,9 +1,9 @@
-import { selectorNames } from "./constant.js";
+import { selectorNames } from "../../util/constant.js";
 
 export function itemPanel(_, data) {
   const { VM_ITEMS, ITEM_LIST } = selectorNames;
   const itemList = data.reduce((list, item) => {
-    list += `<li>${item.name}<span>${item.price}</span></li>`;
+    list += `<li><div>${item.id}</div>${item.name}<span>${item.price}</span></li>`;
     return list;
   }, "");
   return `<div id=${VM_ITEMS}><ul class=${ITEM_LIST}>${itemList}</ul></div>`;
@@ -12,10 +12,11 @@ export function itemPanel(_, data) {
 export function statePanel(_, data) {
   const { VM_STATE, STATE_MONEY, STATE_NUMBERS, STATE_MESSAGE } = selectorNames;
   const numbers = [...Array(11).keys()].map(i => i + 1);
+  numbers[numbers.length - 2] = "0";
   numbers[numbers.length - 1] = "선택";
 
   const buttons = numbers.reduce((btns, number) => {
-    btns += `<li><button>${number}</button></li>`;
+    btns += `<li><button value=${number}>${number}</button></li>`;
     return btns;
   }, "");
 
@@ -27,12 +28,12 @@ export function statePanel(_, data) {
 }
 
 export function wallet(_, data) {
-  const { WALLET, WALLET_STATE, WALLET_TOTAL } = selectorNames;
-  let walletList = "";
-  let total = 0;
-  for (let [money, count] of Object.entries(data)) {
-    walletList += `<li><button value=${money}>${money}원</button><span>${count}개</span></li>`;
-    total += money * count;
+  const { WALLET, WALLET_STATE, WALLET_COUNT, WALLET_TOTAL } = selectorNames;
+  const { moneyList, total } = data;
+
+  let list = "";
+  for (let [money, count] of Object.entries(moneyList)) {
+    list += `<li class=${WALLET_COUNT}><button value=${money}>${money}원</button><span>${count}</span>개</li>`;
   }
 
   let totalWithComma = "";
@@ -43,8 +44,8 @@ export function wallet(_, data) {
       : (totalWithComma = `${totalString.slice(0, i)}` + totalWithComma);
   }
 
-  const walletState = `<div class=${WALLET_STATE}><ul>${walletList}</ul></div>`;
-  const walletTotal = `<div class=${WALLET_TOTAL}>${totalWithComma}원</div>`;
+  const walletState = `<div class=${WALLET_STATE}><ul>${list}</ul></div>`;
+  const walletTotal = `<div class=${WALLET_TOTAL}><span>${totalWithComma}</span>원</div>`;
 
   return `<div id=${WALLET}>${walletState}${walletTotal}</div>`;
 }

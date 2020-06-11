@@ -1,76 +1,106 @@
-@import 'var';
+@import "var";
 #vending-machine {
-    display: flex;
-    width: $inner-width;
-    margin: 20px auto;
-    padding: 20px;
-    border: 3px solid #000;
-    border-radius: 5px;
-    background: $color-ci;
+	display: flex;
+	width: $inner-width;
+	padding: 20px;
+	border-radius: 15px;
+	background: $color-ci;
 
-    #vm-items {
-        width: 65%;
-        padding: 10px;
-        border: 2px solid #e75748;
-        border-radius: 5px;
-        background: #fdf1d7;
-        .item-list {
-            display: flex;
-            flex-wrap: wrap;
-            li {
-                width: 20%;
-                margin: 2.5%;
-                padding: 10px;
-                text-align: center;
-                border: 1px solid $color-ci;
-                background: #fff;
-                span {
-                    display: block;
-                    margin-top: 10px;
-                    font-size: 13px;
-                    line-height: 1.5;
-                    border-radius: 3px;
-                    background: #2cb69c;
-                }
-            }
-        }
-    }
-    #vm-state {
-        padding: 0 10px;
-        width: 35%;
-        .state-money {
-            margin-bottom: 10px;
-            padding: 5px;
-            border-radius: 3px;
-            text-align: right;
-            background: #2cb69c;
-        }
-        .state-numbers {
-            margin-bottom: 10px;
-            > ul {
-                display: flex;
-                flex-wrap: wrap;
-                li {
-                    width: 33.3%;
-                    button {
-                        border: 1px solid $color-ci;
-                    }
-                    &:last-child {
-                        width: calc(100% - 33.3%);
-                        button {
-                            color: #fff;
-                            background: #e75748;
-                        }
-                    }
-                }
-            }
-        }
-        .state-message {
-            min-height: 100px;
-            padding: 10px;
-            border: 2px solid #e75748;
-            border-radius: 5px;
-            background: #fdf1d7;
-        }
-    }
+	#vm-items {
+		width: 65%;
+		padding: 5px;
+		border: 2px solid #e75748;
+		border-radius: 5px;
+		background: #fdf1d7;
+		.item-list {
+			display: flex;
+			flex-wrap: wrap;
+			li {
+				position: relative;
+				width: 22%;
+				min-height: 80px;
+				margin: 1.5%;
+				padding-top: 18px;
+				font-size: 14px;
+				line-height: 1.2;
+				word-break: keep-all;
+				text-align: center;
+				border: 1px solid $color-ci;
+				background: #fff;
+				&:not(:nth-child(3)) {
+					padding-top: 26px;
+				}
+				div {
+					position: absolute;
+					top: 0;
+					width: 100%;
+					color: #fff;
+					background: $color-ci;
+				}
+				span {
+					position: absolute;
+					display: block;
+					width: calc(100% - 10px);
+					bottom: 5px;
+					left: 5px;
+					margin-top: 10px;
+					font-size: 13px;
+					line-height: 1.5;
+					border-radius: 3px;
+					background: #2cb69c;
+				}
+				&.active {
+					border: 1px solid #e75748;
+					outline: 1px dashed #e75748;
+					outline-offset: -5px;
+					span {
+						color: #fff;
+						background: #e75748;
+					}
+				}
+			}
+		}
+	}
+	#vm-state {
+		padding: 0 0 0 10px;
+		width: 35%;
+		.state-money {
+			margin-bottom: 10px;
+			padding: 5px;
+			border-radius: 3px;
+			text-align: right;
+			background: #2cb69c;
+		}
+		.state-numbers {
+			margin-bottom: 10px;
+			> ul {
+				display: flex;
+				flex-wrap: wrap;
+				li {
+					width: 33.3%;
+					button {
+						border: 1px solid $color-ci;
+						cursor: pointer;
+					}
+					&:last-child {
+						width: calc(100% - 33.3%);
+						button {
+							color: #fff;
+							background: #e75748;
+						}
+					}
+				}
+			}
+		}
+		.state-message {
+			overflow-y: auto;
+			height: 200px;
+			padding: 10px;
+			font-size: 14px;
+			line-height: 1.4;
+			border: 2px solid #e75748;
+			border-radius: 5px;
+			background: #fdf1d7;
+		}
+	}
 }
